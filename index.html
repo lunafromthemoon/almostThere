@@ -60,6 +60,8 @@
 					<div class="row mt-5">
 						<div class="col text-center">
 							<div id="progressbarMoney"></div>
+							<h1 id="donations-info" class="mt-5"></h1>
+							<h2 id="goal-info" class="mt-5"></h2>
 						</div>
 						<div class="col text-center">
 							<div id="progressbarPercentage"></div>
@@ -67,8 +69,22 @@
 					</div>
 					<div class="row mt-5">
 						<div class="col text-center">
-							<h3>You still have time to participate, login and make a donation!</h3>
-							<button class="btn" style="font-size: 13pt">Login</button>
+							<div id="not-logged" style="display: none">
+								<h3>You still have time to participate, login and make a donation!</h3>
+								<button class="btn" style="font-size: 13pt" onclick="login()">Login</button>
+							</div>
+							<div id="logged" style="display: none;">
+								<h3>
+									<button class="badge badge-pill badge-info" onclick="addDonation(10)" type="button" 
+									>+10!</button>
+									<button class="badge badge-pill badge-success " onclick="addDonation(25)" type="button">+25!</button>
+									<button class="badge badge-pill badge-danger " onclick="addDonation(50)" type="button">+50!</button>
+								</h3>
+								<form class="form-inline justify-content-center">
+									<input type="text" class="form-control mr-sm-2 w-50" placeholder="How much will you donate" value="5" aria-label="donation-amount" id="donation-input" aria-describedby="basic-addon2">
+								    <button class="btn " onclick="donate()" type="button">Donate!</button>
+								</form>
+							</div>
 
 						</div>
 					</div>	

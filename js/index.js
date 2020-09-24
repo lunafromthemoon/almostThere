@@ -1,28 +1,42 @@
+let accountId = null;
+
+let campaign = {
+    name: "Help me buy a new laptop",
+    owner: "laptop.testnet",
+    goal: 500,
+    startDate: new Date(),
+    endDate: "01/01/2021",
+    totalDonations: 45,
+    donations:[{from:"donnor1.testnet",total:5},{from:"donnor2.testnet",total:30},{from:"donnor3.testnet",total:10}]
+}
+
+
+
 $(document).ready(function() {
 
-	var config = {
-    countdown: {
-        year: 2021,
-        month: 8,
-        day: 24,
-        hour: 10,
-        minute: 55,
-        second: 12
-    }};
+	// var config = {
+ //    countdown: {
+ //        year: 2021,
+ //        month: 8,
+ //        day: 24,
+ //        hour: 10,
+ //        minute: 55,
+ //        second: 12
+ //    }};
 	
-    var date = new Date(config.countdown.year,
-                        config.countdown.month - 1,
-                        config.countdown.day,
-                        config.countdown.hour,
-                        config.countdown.minute,
-                        config.countdown.second),
+ //    var date = new Date(config.countdown.year,
+ //                        config.countdown.month - 1,
+ //                        config.countdown.day,
+ //                        config.countdown.hour,
+ //                        config.countdown.minute,
+ //                        config.countdown.second),
         $countdownNumbers = {
             days: $('#countdown-days'),
             hours: $('#countdown-hours'),
             minutes: $('#countdown-minutes'),
             seconds: $('#countdown-seconds')
         };
-    $('#countdown').countdown(date, function(event) {
+    $('#countdown').countdown(campaign.endDate, function(event) {
         $countdownNumbers.days.text(event.offset.totalDays);
         $countdownNumbers.hours.text(('0' + event.offset.hours).slice(-2));
         $countdownNumbers.minutes.text(('0' + event.offset.minutes).slice(-2));
@@ -30,13 +44,12 @@ $(document).ready(function() {
     });
 
     // var ProgressBar = require('js/progressbar.js')
-    var campaignProgress = 0.7;
     var colorZero = "#ff334f";
     var colorComplete = "#55ff33";
     var colorTrail = '#eee';
 
     // var line = new ProgressBar.Line('#progressbar');
-    var progressbar = new ProgressBar.Circle('#progressbarPercentage', {
+    progressbar = new ProgressBar.Circle('#progressbarPercentage', {
         // color: '#FCB03C',
         duration: 3000,
         strokeWidth: 6,
@@ -60,21 +73,14 @@ $(document).ready(function() {
         },
         text: {
         	autoStyleContainer: false,
-        	// style: {
-        	// 	fontFamily: '"Raleway", Helvetica, sans-serif',
-        	// 	fontSize: '2rem'
-        	// }
         }
     });
 
     progressbar.text.style.fontFamily = '"Raleway", Helvetica, sans-serif';
 	progressbar.text.style.fontSize = '6rem';
 	progressbar.text.style.color = '#FFF';
-    progressbar.animate(campaignProgress);
-
-    var totalMoney = 5000;
     
-    var moneyBar = new ProgressBar.Line('#progressbarMoney', {
+    moneyBar = new ProgressBar.Line('#progressbarMoney', {
         // color: '#FCB03C',
         duration: 3000,
         strokeWidth: 6,
@@ -85,29 +91,53 @@ $(document).ready(function() {
     	to: { color: colorComplete },
     	step: function(state, moneyBar, attachment) {
 	        moneyBar.path.setAttribute('stroke', state.color);
-	        var value = Math.round(moneyBar.value() * totalMoney);
-		    if (value === 0) {
-		      moneyBar.setText('Nothing collected yet!');
-		    } else {
-		      moneyBar.setText(value+" Nears collected!");
-		    }
+	        var value = Math.round(moneyBar.value() * campaign.goal);
+            $("#donations-info").html(`${value} Nears collected so far.`)
+            $("#goal-info").html(`Only ${campaign.goal-value} more to reach the goal!`)
 		    // moneyBar.text.style.color = state.color
 	    },
-        // svgStyle:{
-        // 	height: '500px'
-        // },
-        text: {
-        	autoStyleContainer: false,
-        	// style: {
-        	// 	fontFamily: '"Raleway", Helvetica, sans-serif',
-        	// 	fontSize: '2rem'
-        	// }
-        }
     });
 
-    moneyBar.text.style.fontFamily = '"Raleway", Helvetica, sans-serif';
-	moneyBar.text.style.fontSize = '3rem';
-	moneyBar.text.style.color = '#FFF';
-    moneyBar.animate(campaignProgress);
-
+    if (!accountId){
+        $("#not-logged").show();
+        $("#logged").hide();
+    } else {
+        loggedInFlow();
+    }
+    updateBars()
 });
+
+function loggedInFlow(){
+    $("#not-logged").hide();
+    $("#logged").show();
+}
+
+window.login = function(){
+    accountId = "lunafromthemoon.testnet";
+    loggedInFlow();
+}
+
+window.addDonation = function(amount){
+    var previousAmount = parseFloat($('#donation-input').val());
+    if (isNaN(previousAmount)){
+        previousAmount=0;
+    }
+    $('#donation-input').val(previousAmount+amount)
+}
+
+window.donate = function(){
+    var amount = parseFloat($('#donation-input').val());
+    if (!isNaN(amount)){
+        campaign.donations.push({from:accountId,total:amount});
+        campaign.totalDonations+=amount;
+        updateBars();
+    }
+    
+}
+
+function updateBars(){
+    var campaignProgress = 1 - (campaign.goal - campaign.totalDonations) / campaign.goal;
+    console.log(campaignProgress)
+    moneyBar.animate(campaignProgress);
+    progressbar.animate(campaignProgress);
+}
