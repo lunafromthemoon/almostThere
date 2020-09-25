@@ -54,6 +54,7 @@
           <li><a href="#donate-section">Donations</a></li>
           <li><a href="#supporters-section">Supporters</a></li>
           <li class="donate-section"><a href="#footer">Make a campaign</a></li>
+          <li><a type="button" id="logout-btn" href="#" onclick="logout()">Logout</a></li>
         </ul>
       </nav><!-- #nav-menu-container -->
     </div>
@@ -138,6 +139,7 @@
                   <a class="outline-btn big-btn" onclick="login()" type="button">Login</a>
                 </div>
                 <div id="logged" style="display: none;">
+                  <h3><span id="username"></span> you can help us reach the goal!</h3>
                   <h3>
                     <a class="outline-btn outline-blue big-btn" onclick="addDonation(10)" type="button">+10!</a>
                     <a class="outline-btn outline-purple big-btn" onclick="addDonation(25)" type="button">+25!</a>

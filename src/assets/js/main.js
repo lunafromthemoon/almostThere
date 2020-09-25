@@ -1,17 +1,12 @@
 
-// import { ProgressBar } from './progressbar'
-var ProgressBar = require('progressbar.js');
-/**
-* Template Name: TheEvent - v2.2.0
-* Template URL: https://bootstrapmade.com/theevent-conference-event-bootstrap-template/
-* Author: BootstrapMade.com
-* License: https://bootstrapmade.com/license/
-*/
+import 'regenerator-runtime/runtime'
+import {initNEAR, login, logout, getProject, startProject, donateTo } from './blockchain'
 
+window.getProject = getProject;
+window.startProject = startProject;
+window.donateTo = donateTo;
 
-
-// let accountId = "medium.testnet";
-let accountId = null;
+let ProgressBar = require('progressbar.js');
 
 let campaign = {
     name: "Help me buy a new laptop",
@@ -49,6 +44,10 @@ let campaign = {
 let progressbar,moneyBar;
 
 function initPage(){
+  window.accountId = null;
+  window.nearInitPromise = initNEAR()
+  .then(connected => { if (connected) loginFlow()
+                       else logoutFlow() })
   let $countdownNumbers = {
     days: $('#countdown-days'),
     hours: $('#countdown-hours'),
@@ -63,16 +62,12 @@ function initPage(){
   });
   initBars();
   initDonnors();
-  if (!accountId){
-      $("#not-logged").show();
-      $("#logged").hide();
-  } else {
-      loggedInFlow();
-  }
+  
 }
 
 function initDonnors(){
   var isDonnor = false;
+  $("#donnors").html("")
   campaign.donations.forEach(donnor=>{
     var donnorClass = "small-donnor";
     if (donnor.from == accountId){
@@ -169,15 +164,21 @@ function updateBars(force){
     
 }
 
-function loggedInFlow(){
-    $("#not-logged").hide();
-    $("#logged").show();
+function loginFlow(){
+  $("#not-logged").hide();
+  $("#logged").show();
+  $("#username").html(accountId);
+  initDonnors();
 }
 
-window.login = function(){
-    accountId = "lunafromthemoon.testnet";
-    loggedInFlow();
+function logoutFlow(){
+  $("#not-logged").show();
+  $("#logged").hide();
+  $("#logout-btn").hide();
 }
+
+window.login = login;
+window.logout = logout;
 
 window.addDonation = function(amount){
     var previousAmount = parseFloat($('#donation-input').val());
