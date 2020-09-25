@@ -1,0 +1,119 @@
+<!doctype html>
+<html>
+	<head>
+		<title>Nearly There!</title>
+		<meta charset="utf-8">
+		<meta name="description" content="NearlyThere Fundraiser">
+		<meta name="author" content="lunafromthemoon">
+		<meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+		<link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,700" rel="stylesheet" type="text/css">
+		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+		<link rel="stylesheet" href="css/style.css">
+		<link rel="stylesheet" href="css/icomoon/style.css">
+		<link rel="stylesheet" href="css/pink.css" class="colors">
+		<link rel="shortcut icon" href="img/pink.jpg" sizes="32x32" type="image/png"/>
+		<link rel="apple-touch-icon-precomposed" href="img/ico/60.png" type="image/png"/>
+		<link rel="apple-touch-icon-precomposed" sizes="72x72" href="img/ico/72.png" type="image/png"/>
+		<link rel="apple-touch-icon-precomposed" sizes="120x120" href="img/ico/120.png" type="image/png"/>
+		<link rel="apple-touch-icon-precomposed" sizes="152x152" href="img/ico/152.png" type="image/png"/>
+		<link href="https://fonts.googleapis.com/css?family=Raleway:400,300,600,800,900" rel="stylesheet" type="text/css">
+		<script type="text/javascript" src="js/progressbar.js"></script>
+		<!-- <script src="https://cdn.rawgit.com/kimmobrunfeldt/progressbar.js/0.5.6/dist/progressbar.js"></script> -->
+		<!--[if lt IE 9]>
+			<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+			<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+		<![endif]-->
+	</head>
+
+	<body id="home">
+
+		
+		<!-- <img class="d-block w-100" src="img/banner.png"> -->
+		
+		<div id="header">
+
+		<div class="header-content">
+			<div class="countdown" id="countdown">
+				<div class="container">
+					  <div class="row">
+						<div class="countdown-item col-sm-3 col-xs-3">
+							<div class="countdown-number" id="countdown-days">440</div>
+							<div class="countdown-label">days</div>
+						</div>
+
+						<div class="countdown-item col-sm-3 col-xs-3">
+							<div class="countdown-number" id="countdown-hours">04</div>
+							<div class="countdown-label">hours</div>
+						</div>
+
+						<div class="countdown-item col-sm-3 col-xs-3">
+							<div class="countdown-number" id="countdown-minutes">51</div>
+							<div class="countdown-label">minutes</div>
+						</div>
+
+						<div class="countdown-item col-sm-3 col-xs-3">
+							<div class="countdown-number" id="countdown-seconds">44</div>
+							<div class="countdown-label">seconds</div>
+						</div>
+					</div>
+					<div class="row mt-5">
+						<div class="col text-center">
+							<div id="progressbarMoney"></div>
+							<h1 id="donations-info" class="mt-5"></h1>
+							<h2 id="goal-info" class="mt-5"></h2>
+						</div>
+						<div class="col text-center">
+							<div id="progressbarPercentage"></div>
+						</div>
+					</div>
+					<div class="row mt-5">
+						<div class="col text-center">
+							<div id="not-logged" style="display: none">
+								<h3>You still have time to participate, login and make a donation!</h3>
+								<button class="btn" style="font-size: 13pt" onclick="login()">Login</button>
+							</div>
+							<div id="logged" style="display: none;">
+								<h3>
+									<button class="badge badge-pill badge-info" onclick="addDonation(10)" type="button" 
+									>+10!</button>
+									<button class="badge badge-pill badge-success " onclick="addDonation(25)" type="button">+25!</button>
+									<button class="badge badge-pill badge-danger " onclick="addDonation(50)" type="button">+50!</button>
+								</h3>
+								<form class="form-inline justify-content-center">
+									<input type="text" class="form-control mr-sm-2 w-50" placeholder="How much will you donate" value="5" aria-label="donation-amount" id="donation-input" aria-describedby="basic-addon2">
+								    <button class="btn " onclick="donate()" type="button">Donate!</button>
+								</form>
+							</div>
+
+						</div>
+					</div>	
+				</div>
+
+			</div>
+			<div class="container">
+				<div class="row">
+					<div class="col text-center">
+						<ul class="social-links text-xs-center">
+							<li><a href="#link"><i class="icon-twitter"></i></a></li>
+							<li><a href="#link"><i class="icon-facebook"></i></a></li>
+							<li><a href="#link"><i class="icon-googleplus"></i></a></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+			<footer>
+				<p class="text-center">Powered by Sia & Near<br>
+				</p>
+			</footer>
+		</div>
+		</div>
+			
+		<script
+			  src="https://code.jquery.com/jquery-3.5.1.min.js"
+			  integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0="
+			  crossorigin="anonymous"></script>
+		<script type="text/javascript" src="js/jquery.countdown.min.js"></script>
+		<script type="text/javascript" src="js/index.js"></script>
+	</body>
+</html>
