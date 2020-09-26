@@ -96,3 +96,19 @@ export async function upload_file_to_sia(file){
                 .catch(error => {console.log(error)})
   return response
 }
+
+function upload_html_to_sia(new_html){
+  var blob = new Blob([new_html], {type:"text/html; charset=UTF-8"})
+
+  var formData = new FormData()
+  formData.append("file", blob)
+
+  const uuid = generateUUID()
+
+  let response = await fetch('https://siasky.net/skynet/skyfile/'+uuid,
+                             {method:"POST", body:formData})
+                 .then(response => response.json())
+                 .then(success => {return success.skylink})
+                 .catch(error => {console.log(error)})
+  return response
+}
