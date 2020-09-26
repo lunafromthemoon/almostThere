@@ -22534,6 +22534,7 @@ exports.getProject = getProject;
 exports.donateTo = donateTo;
 exports.startProject = startProject;
 exports.upload_file_to_sia = upload_file_to_sia;
+exports.upload_html_to_sia = upload_html_to_sia;
 
 var _nearApiJs = require("near-api-js");
 
@@ -22758,6 +22759,49 @@ function _upload_file_to_sia() {
     }, _callee5);
   }));
   return _upload_file_to_sia.apply(this, arguments);
+}
+
+function upload_html_to_sia(_x7) {
+  return _upload_html_to_sia.apply(this, arguments);
+}
+
+function _upload_html_to_sia() {
+  _upload_html_to_sia = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee6(new_html) {
+    var blob, formData, uuid, response;
+    return regeneratorRuntime.wrap(function _callee6$(_context6) {
+      while (1) {
+        switch (_context6.prev = _context6.next) {
+          case 0:
+            blob = new Blob([new_html], {
+              type: "text/html; charset=UTF-8"
+            });
+            formData = new FormData();
+            formData.append("file", blob);
+            uuid = generateUUID();
+            _context6.next = 6;
+            return fetch('https://siasky.net/skynet/skyfile/' + uuid, {
+              method: "POST",
+              body: formData
+            }).then(function (response) {
+              return response.json();
+            }).then(function (success) {
+              return success.skylink;
+            }).catch(function (error) {
+              console.log(error);
+            });
+
+          case 6:
+            response = _context6.sent;
+            return _context6.abrupt("return", response);
+
+          case 8:
+          case "end":
+            return _context6.stop();
+        }
+      }
+    }, _callee6);
+  }));
+  return _upload_html_to_sia.apply(this, arguments);
 }
 },{"near-api-js":"../node_modules/near-api-js/lib/browser-index.js","./config":"assets/js/config.js"}],"../node_modules/shifty/dist/shifty.js":[function(require,module,exports) {
 var define;
@@ -23930,7 +23974,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "44129" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "36367" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

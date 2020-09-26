@@ -107,7 +107,7 @@
           <h3 class="text-center">You're Almost There!</h3>
         </div>
         <div id="not-logged" style="display: none">
-          <div class="row">
+          <div class="row text-center">
             <div class="col-lg-12" data-aos="fade-up" data-aos-delay="100">
               <h3>To create your own campaign, you first need to login.</h3>
               <a class="outline-btn big-btn" onclick="login()" type="button">Login</a>
@@ -117,7 +117,8 @@
         <div id="logged" style="display: none">
           <div class="row mb-5" data-aos="fade-up" data-aos-delay="100">
             <div class="col-lg-12 text-center">
-              <h3 class="red-text">First, what will this campaign be about?</h3><br>
+              <h2>Hello <span id="username"></span>, you're ready to start a campaign. But first, we need some information.</h2><br>
+              <h3 class="red-text">What will this campaign be about?</h3><br>
               <form class="form-inline justify-content-center">
                 <h3 class="mr-sm-2 my-auto">Help</h3>
                 <input type="text" class="form-control mr-sm-2 campaign-input" placeholder="Who?" aria-label="donation-amount" id="who-input" aria-describedby="basic-addon2">

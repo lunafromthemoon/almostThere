@@ -97,7 +97,7 @@ export async function upload_file_to_sia(file){
   return response
 }
 
-function upload_html_to_sia(new_html){
+export async function upload_html_to_sia(new_html){
   var blob = new Blob([new_html], {type:"text/html; charset=UTF-8"})
 
   var formData = new FormData()
