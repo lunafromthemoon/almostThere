@@ -42,9 +42,9 @@
         <ul class="nav-menu">
           <li class="menu-active"><a href="#intro">Home</a></li>
           <li><a href="#about-section">About this campaign</a></li>
-          <li><a href="#donate-section">Donations</a></li>
-          <li><a href="#supporters-section">Supporters</a></li>
-          <li><a type="button" id="logout-btn" href="#" onclick="logout()">Logout</a></li>
+          <li class="logged"><a href="#donate-section">Donations</a></li>
+          <li class="logged"><a href="#supporters-section">Supporters</a></li>
+          <li class="logged"><a type="button" href="#" onclick="logout()">Logout</a></li>
           <li class="important-section"><a href="#footer">Make your own campaign</a></li>
           
         </ul>
@@ -63,6 +63,7 @@
       <div id="videoPopup" class="mfp-hide embed-responsive embed-responsive-21by9">
         <iframe class="embed-responsive-item" width="854" height="480" src="https://siasky.net/_AmwD-D2nqQsbuuGsYJ7doSyVuy4uYyxD24nB_drsHEGyg" frameborder="0" allowfullscreen></iframe>
       </div>
+      <a class="outline-btn big-btn not-logged" onclick="login()" type="button">Login with Near</a>
       <a href="#about-section" class="outline-btn scrollto">Why?</a>
       <div class="countdown" id="countdown" target-date="12/12/2020">
           <div class="row">
@@ -100,23 +101,26 @@
           <div class="col-lg-12">
             <h2>About This Campaign</h2>
             <p id="campaign-description">Recently I tried to play a new videogame in my computer, but guess what? It couldn't run it, even in the lowest graphic settings. I'm glad I pirated that game, if not, I would have lost about 30 euros. But the issue remains, I need a new laptop so that I can play any and all of the games. </p> <p>Help me achieve this dream!</p>
+            <div class="not-logged text-center my-3">
+              <h3>You still have time to participate, login and make a donation!</h3>
+              <a class="outline-btn big-btn" onclick="login()" type="button">Login with Near</a>
+            </div>
           </div>
           <img id="campaign-image" src="https://siasky.net/PAKWNgs9phADpaAveIUxpCjEvao43BrqG6Jm2p1KeVslyg">
+
         </div>
       </div>
     </section><!-- End About Section -->
 
     <!-- ======= Donate Section ======= -->
-    <section id="donate-section" class="section-with-bg" style='background-image: url("https://siasky.net/_AK77HDX8G1e3Ke4Y8FIoZIa0mdchopm3Lsv1LC-MIDdHw")'
-    	campaign-goal="500"
-    >
+    <section id="donate-section" class="section-with-bg logged" style='background-image: url("https://siasky.net/_AK77HDX8G1e3Ke4Y8FIoZIa0mdchopm3Lsv1LC-MIDdHw")'
+    	campaign-goal="500" style="display: none;">
       <div class="container" data-aos="fade-up">
 
         <div class="section-header" style="margin-bottom: 5px;">
           <h2>Donations</h2>
           <h3 class="text-center">We're Almost there!</h3>
         </div>
-
         <div class="row">
           <div class="col-lg-12" data-aos="fade-up" data-aos-delay="100">
             <div class="row">
@@ -133,25 +137,19 @@
           <div class="col-lg-12" data-aos="fade-up" data-aos-delay="200">
             <div class="row mt-3">
               <div class="col text-center">
-              	<div id="not-logged" style="display: none">
-                  <h3>You still have time to participate, login and make a donation!</h3>
-                  <a class="outline-btn big-btn" onclick="login()" type="button">Login</a>
-                </div>
-                <div id="logged" style="display: none;">
-                  <h3><span id="username"></span> you can help us reach the goal!</h3>
-                  <h3>
-                    <a class="outline-btn outline-blue big-btn" onclick="addDonation(15)" type="button">+15!</a>
-                    <a class="outline-btn outline-purple big-btn" onclick="addDonation(50)" type="button">+50!</a>
-                    <a class="outline-btn big-btn" onclick="addDonation(100)" type="button">+100!</a>
-                  </h3>
-                  <form class="form-inline justify-content-center">
-                    <input type="text" class="form-control mr-sm-2 w-50 big-input" placeholder="How much will you donate?" aria-label="donation-amount" id="donation-input" aria-describedby="basic-addon2">
-                      <a class="outline-btn big-btn" onclick="donate()"type="button">Donate!</a>
-                  </form>
-              	</div>
-              </div>
-            </div>  
-          </div>
+                <h3><span id="username"></span> you can help us reach the goal!</h3>
+                <h3>
+                  <a class="outline-btn outline-blue big-btn" onclick="addDonation(15)" type="button">+15!</a>
+                  <a class="outline-btn outline-purple big-btn" onclick="addDonation(50)" type="button">+50!</a>
+                  <a class="outline-btn big-btn" onclick="addDonation(100)" type="button">+100!</a>
+                </h3>
+                <form class="form-inline justify-content-center">
+                  <input type="text" class="form-control mr-sm-2 w-50 big-input" placeholder="How much will you donate?" aria-label="donation-amount" id="donation-input" aria-describedby="basic-addon2">
+                    <a class="outline-btn big-btn" onclick="donate()"type="button">Donate!</a>
+                </form>
+            	</div>
+            </div>
+          </div>  
         </div>
       </div>
 
@@ -159,7 +157,7 @@
     </section><!-- End Donate Section -->
 
      <!-- ======= Supporters Section ======= -->
-    <section id="supporters-section" class="section-with-bg" style='background-image: url("https://siasky.net/rABIfLaqQW6kKHc1SWltDLg5N4MGOU9LYdnUtfXmlG122g")'>
+    <section id="supporters-section" class="section-with-bg logged" style='background-image: url("https://siasky.net/rABIfLaqQW6kKHc1SWltDLg5N4MGOU9LYdnUtfXmlG122g")' style="display: none;">
 
       <div class="container mb-5" data-aos="fade-up">
         <div class="section-header">
@@ -235,30 +233,35 @@
   let totalDonations = 0;
 
   $(document).ready(function() {
-    window.nearInitPromise = initNEAR(nearConfig)
-    .then(connected => { 
-      getCampaign(CAMPAIGN_ID).then(campaign=>{
-        window.campaign = campaign;
-        if (!campaign){
-          // campaign is finished
-        } else {
-          initBars();
-          initDonors();
-        }
-      })
+    window.nearInitPromise = initNEAR(nearConfig).then(connected => { 
       if (connected) {
-        $("#not-logged").hide();
-        $("#logged").show();
-        $("#username").html(accountId);
+        loginFlow();
       } else {
-        $("#not-logged").show();
-        $("#logged").hide();
-        $("#logout-btn").hide();
+        logoutFlow();
       }
      })
     initCountdown();
-    
-  })
+  });
+
+  function loginFlow(){
+    getCampaign(CAMPAIGN_ID).then(campaign=>{
+      window.campaign = campaign;
+      if (!campaign){
+        // campaign is finished
+      } else {
+        initBars();
+        initDonors();
+      }
+    });
+    $(".not-logged").hide();
+    $(".logged").show();
+    $("#username").html(accountId);
+  }
+
+  function logoutFlow(){
+    $(".not-logged").show();
+    $(".logged").hide();
+  }
 
   function initCountdown() {
    let $countdownNumbers = {

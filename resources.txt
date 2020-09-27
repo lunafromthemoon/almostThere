@@ -10,8 +10,10 @@ https://siasky.net/CABb-4c65I1RkPvNrDhaWdh2ImMfr51lBiH8GAPRD9g7hQ
 style.js
 https://siasky.net/CAABxphqButp3eASD561MMfj9ptsa0fPF83eYn6IrejNog
 
-template html
+template html preview
 https://siasky.net/GAD69XHlmukIiTXkG_7RSS4HyQHSvgZN5k42kWGf9YmasQ
+template html final
+https://siasky.net/IACfwDP-k2PLclLEcS7n3hUwHVN-AkQrnGX3__9U6uO9sw
 
 
 imagenes

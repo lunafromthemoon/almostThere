@@ -42,9 +42,9 @@
         <ul class="nav-menu">
           <li class="menu-active"><a href="#intro">Home</a></li>
           <li><a href="#about-section">About this campaign</a></li>
-          <li><a href="#donate-section">Donations</a></li>
-          <li><a href="#supporters-section">Supporters</a></li>
-          <li><a type="button" id="logout-btn" href="#" onclick="logout()">Logout</a></li>
+          <li class="logged"><a href="#donate-section">Donations</a></li>
+          <li class="logged"><a href="#supporters-section">Supporters</a></li>
+          <li class="logged"><a type="button" href="#" onclick="logout()">Logout</a></li>
           <li class="important-section"><a href="#footer">Make your own campaign</a></li>
           
         </ul>
@@ -58,6 +58,7 @@
       <h1 class="mb-4 pb-0">Help TEMPLATE_WHO<br><span id="what">TEMPLATE_WHAT</span></h1>
       <p class="mb-4 pb-0">A campaign by <span id="owner">TEMPLATE_OWNER</span></p>
       <a type="button" href="#videoPopup" id="campaign-video" target="_blank" class="play-btn mb-4"></a>
+      <a class="outline-btn big-btn not-logged" onclick="login()" type="button">Login with Near</a>
       <div id="videoPopup" class="mfp-hide embed-responsive embed-responsive-21by9">
         <iframe class="embed-responsive-item" width="854" height="480" src="TEMPLATE_VIDEO" frameborder="0" allowfullscreen></iframe>
       </div>
@@ -98,6 +99,10 @@
           <div class="col-lg-12">
             <h2>About This Campaign</h2>
             <p id="campaign-description">TEMPLATE_DESCRIPTION</p>
+            <div class="not-logged text-center my-3">
+              <h3>You still have time to participate, login and make a donation!</h3>
+              <a class="outline-btn big-btn" onclick="login()" type="button">Login with Near</a>
+            </div>
           </div>
           <img id="campaign-image" src="TEMPLATE_IMAGE">
         </div>
@@ -105,9 +110,8 @@
     </section><!-- End About Section -->
 
     <!-- ======= Donate Section ======= -->
-    <section id="donate-section" class="section-with-bg" style='background-image: url("https://siasky.net/_AK77HDX8G1e3Ke4Y8FIoZIa0mdchopm3Lsv1LC-MIDdHw")'
-      campaign-goal="TEMPLATE_GOAL"
-    >
+    <section id="donate-section" class="section-with-bg logged" style='background-image: url("https://siasky.net/_AK77HDX8G1e3Ke4Y8FIoZIa0mdchopm3Lsv1LC-MIDdHw"); display: none;'
+      campaign-goal="TEMPLATE_GOAL">
       <div class="container" data-aos="fade-up">
 
         <div class="section-header" style="margin-bottom: 5px;">
@@ -157,7 +161,7 @@
     </section><!-- End Donate Section -->
 
      <!-- ======= Supporters Section ======= -->
-    <section id="supporters-section" class="section-with-bg" style='background-image: url("https://siasky.net/rABIfLaqQW6kKHc1SWltDLg5N4MGOU9LYdnUtfXmlG122g")'>
+    <section id="supporters-section" class="section-with-bg logged" style='background-image: url("https://siasky.net/rABIfLaqQW6kKHc1SWltDLg5N4MGOU9LYdnUtfXmlG122g"); display: none;'>
 
       <div class="container mb-5" data-aos="fade-up">
         <div class="section-header">
@@ -231,32 +235,36 @@
 
   let progressbar,moneyBar;
   let totalDonations = 0;
-  window.campaign = null;
   $(document).ready(function() {
-    window.nearInitPromise = initNEAR(nearConfig)
-    .then(connected => { 
-      getCampaign(CAMPAIGN_ID).then(campaign=>{
-        window.campaign = campaign;
-        if (!campaign){
-          // campaign is finished
-        } else {
-          initBars();
-          initDonors();
-        }
-      })
+    window.nearInitPromise = initNEAR(nearConfig).then(connected => { 
       if (connected) {
-        $("#not-logged").hide();
-        $("#logged").show();
-        $("#username").html(accountId);
+        loginFlow();
       } else {
-        $("#not-logged").show();
-        $("#logged").hide();
-        $("#logout-btn").hide();
+        logoutFlow();
       }
      })
     initCountdown();
-    
-  })
+  });
+
+  function loginFlow(){
+    getCampaign(CAMPAIGN_ID).then(campaign=>{
+      window.campaign = campaign;
+      if (!campaign){
+        // campaign is finished
+      } else {
+        initBars();
+        initDonors();
+      }
+    });
+    $(".not-logged").hide();
+    $(".logged").show();
+    $("#username").html(accountId);
+  }
+
+  function logoutFlow(){
+    $(".not-logged").show();
+    $(".logged").hide();
+  }
 
   function initCountdown() {
    let $countdownNumbers = {
