@@ -34,7 +34,7 @@ export function getProjectOf(id:string): Project | null{
   return project
 }
 
-export function startProject(time_end:string, money_objective:u128):bool{
+export function startProject(time_end:string, money_objective:u128):string{
   let ftime:u128 = u128.from(time_end)
   let now:u128 = u128.from(env.block_timestamp())
   let id:string = context.sender + "-" + now.toString()
@@ -42,13 +42,13 @@ export function startProject(time_end:string, money_objective:u128):bool{
   // Check if it has a project running already, if it does, return
   let currently = projects.get(id)
   if(currently){
-      if(currently.time_end < now){return false}
+      if(currently.time_end < now){return ""}
   }
 
   // Create new project
   let project = new Project(id, context.sender, now, ftime, money_objective)
   projects.set(id, project)
-  return true
+  return id
 }
 
 function checkAndDistribute(project:Project):void{

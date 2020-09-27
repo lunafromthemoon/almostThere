@@ -69,7 +69,7 @@ export async function donateTo(id, money_amount){
   account.functionCall(nearConfig.contractName, 'donateTo', {id}, 0, amount)
 }
 
-export async function startProject(timestamp_end, money_objective){
+export async function startCampaign(timestamp_end, money_objective){
   let time_end = (timestamp_end*1000000).toString()
   money_objective = utils.format.parseNearAmount(money_objective.toString())
   return await contract.startProject({time_end, money_objective})

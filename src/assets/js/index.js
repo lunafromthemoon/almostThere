@@ -1,11 +1,11 @@
 import 'regenerator-runtime/runtime'
-import {initNEAR, login, logout, startProject, upload_file_to_sia, upload_html_to_sia } from './blockchain'
+import {initNEAR, login, logout, startCampaign, upload_file_to_sia, upload_html_to_sia } from './blockchain'
 
 window.login = login;
 window.logout = logout;
 
 let previewTemplate = "https://siasky.net/GAD69XHlmukIiTXkG_7RSS4HyQHSvgZN5k42kWGf9YmasQ";
-let finalTemplate = "https://siasky.net/GAD69XHlmukIiTXkG_7RSS4HyQHSvgZN5k42kWGf9YmasQ";
+let finalTemplate = "https://siasky.net/IAAwpBRVynHgTi5byuvHwHM59pNANjX9Jnu8JrMaulO1Ww";
 
 $(document).ready(function() {
   window.accountId = null;
@@ -128,7 +128,7 @@ window.previewCampaign =  function(){
   });
 }
 
-window.publishCampaign =  function(){
+window.publishCampaign = async function(){
   
   let campaignData = validateCampaign();
   if (!campaignData){
@@ -139,23 +139,34 @@ window.publishCampaign =  function(){
 
   $("#publish-btn").html("Creating campaign "+spinner);
 
-  $.get(finalTemplate)
-  .done(async (template) => {
-    // console.log(data)
-    let html = applyTemplate(template,campaignData);
+  let campaignId = await startCampaign(new Date(campaignData.endDate).getTime(),campaignData.goal)
+  // console.log(campaignId)
+  if (campaignId){
+    campaignData.id = campaignId;
+    $.get(finalTemplate).done(async (template) => {
+      // console.log(data)
+      let html = applyTemplate(template,campaignData);
 
-    $("#publish-btn").html("Publishing "+spinner);
-    let htmlLink = await upload_html_to_sia(html);
-    $("#publish-btn").html('Check the preview');
-    // $("#publish-btn").show();
-    window.open('https://siasky.net/'+htmlLink,'_blank');
+      $("#publish-btn").html("Publishing "+spinner);
+      let htmlLink = await upload_html_to_sia(html);
+      $("#preview-btn").hide();
+      $("#publish-btn").hide();
+      $("#open-btn").attr("href",'https://siasky.net/'+htmlLink);
+      $("#open-btn").show();
+      // $("#publish-btn").show();
+      window.open('https://siasky.net/'+htmlLink,'_blank');
 
-  });
+    });
+  } else {
+    alert("error de id")
+  }
+  
 }
 
 function applyTemplate(template,data){
   if (data.id){
-    template = template.replace("TEMPLATE_ID",data.id);
+    template = template.replace("TEMPLATE_CAMPAIGN_ID",data.id);
+    template = template.replace("TEMPLATE_CONTRACT_NAME",nearConfig.contractName);
   }
   template = template.replace("TEMPLATE_OWNER",data.owner);
   template = template.replace("TEMPLATE_TITLE",`Help ${data.title.who} ${data.title.what}`);
