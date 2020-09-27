@@ -22819,7 +22819,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 window.login = _blockchain.login;
 window.logout = _blockchain.logout;
 var previewTemplate = "https://siasky.net/GAD69XHlmukIiTXkG_7RSS4HyQHSvgZN5k42kWGf9YmasQ";
-var finalTemplate = "https://siasky.net/IAAwpBRVynHgTi5byuvHwHM59pNANjX9Jnu8JrMaulO1Ww";
+var finalTemplate = "https://siasky.net/IAA0Coh71E7N5AHbpqMq-fIZpwKCT-FvH52b0_9U141zlw";
 $(document).ready(function () {
   window.accountId = null;
   window.nearInitPromise = (0, _blockchain.initNEAR)().then(function (connected) {
@@ -23116,7 +23116,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "40665" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "38079" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

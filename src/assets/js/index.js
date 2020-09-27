@@ -5,7 +5,7 @@ window.login = login;
 window.logout = logout;
 
 let previewTemplate = "https://siasky.net/GAD69XHlmukIiTXkG_7RSS4HyQHSvgZN5k42kWGf9YmasQ";
-let finalTemplate = "https://siasky.net/IAAwpBRVynHgTi5byuvHwHM59pNANjX9Jnu8JrMaulO1Ww";
+let finalTemplate = "https://siasky.net/IAA0Coh71E7N5AHbpqMq-fIZpwKCT-FvH52b0_9U141zlw";
 
 $(document).ready(function() {
   window.accountId = null;
