@@ -8,6 +8,8 @@
   <title>Almost There</title>
   <meta content="Foundrasiers in the blockchain" name="description">
   <meta content="foundraise, kickstarter, blockchain" name="keywords">
+  <meta content="dev-1601053123010-5211218" name="contract-name">
+  <meta content="campaign" name="campaign-id">
 
   <!-- Favicons -->
   <link href="https://siasky.net/MAClgd30gDehzTGasNr4HSxRpNQ-t2tOjRXD0ofBIthC6g" rel="icon">
@@ -17,8 +19,8 @@
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,700,700i|Raleway:300,400,500,700,800" rel="stylesheet">
 
   <!-- Vendor CSS Files -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/magnific-popup.min.css" integrity="sha512-+EoPw+Fiwh6eSeRK7zwIKG2MA8i3rV/DGa3tdttQGgWyatG/SkncT53KHQaS5Jh9MNOT3dmFL0FjTY08And/Cw==" crossorigin="anonymous" />
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/magnific-popup.min.css" integrity="sha512-+EoPw+Fiwh6eSeRK7zwIKG2MA8i3rV/DGa3tdttQGgWyatG/SkncT53KHQaS5Jh9MNOT3dmFL0FjTY08And/Cw==" crossorigin="anonymous" />
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
   <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 
@@ -29,17 +31,11 @@
 
 <body>
 
-	<div class="alert alert-danger preview-warning" role="alert">
-	  This is a preview of your campaign!
-	</div>
-
   <!-- ======= Header ======= -->
   <header id="header">
     <div class="container">
 
       <div id="logo" class="pull-left logo">
-        <!-- Uncomment below if you prefer to use a text logo -->
-        <!-- <h1><a href="#intro">The<span>Event</span></a></h1>-->
         <a href="/" class="scrollto"><img src="https://siasky.net/MABCAHNo_zefzM7xWBtw1slasgMtsBIiCBfAZfje5Zos2Q" alt="" title=""></a>
       </div>
 
@@ -49,6 +45,7 @@
           <li><a href="#about-section">About this campaign</a></li>
           <li><a href="#donate-section">Donations</a></li>
           <li><a href="#supporters-section">Supporters</a></li>
+          <li><a type="button" id="logout-btn" href="#" onclick="logout()">Logout</a></li>
           <li class="important-section"><a href="#footer">Make your own campaign</a></li>
           
         </ul>
@@ -61,7 +58,7 @@
   <section id="intro" style="background-image: url(https://siasky.net/PAKWNgs9phADpaAveIUxpCjEvao43BrqG6Jm2p1KeVslyg)">
     <div class="intro-container" data-aos="zoom-in" data-aos-delay="100" >
 
-      <h1 class="mb-4 pb-0">Help <span id="who" class="text-white">me</span><br><span id="what">Buy a new laptop</span></h1>
+      <h1 class="mb-4 pb-0">Help me<br><span id="what">Buy a new laptop</span></h1>
       <p class="mb-4 pb-0">A campaign by <span id="owner">lunafromthemoon.testnet</span></p>
       <a type="button" href="#videoPopup" id="campaign-video" target="_blank" class="play-btn mb-4"></a>
       <div id="videoPopup" class="mfp-hide embed-responsive embed-responsive-21by9">
@@ -137,6 +134,11 @@
           <div class="col-lg-12" data-aos="fade-up" data-aos-delay="200">
             <div class="row mt-3">
               <div class="col text-center">
+              	<div id="not-logged" style="display: none">
+                  <h3>You still have time to participate, login and make a donation!</h3>
+                  <a class="outline-btn big-btn" onclick="login()" type="button">Login</a>
+                </div>
+                <div id="logged" style="display: none;">
                   <h3><span id="username"></span> you can help us reach the goal!</h3>
                   <h3>
                     <a class="outline-btn outline-blue big-btn" onclick="addDonation(15)" type="button">+15!</a>
@@ -145,8 +147,9 @@
                   </h3>
                   <form class="form-inline justify-content-center">
                     <input type="text" class="form-control mr-sm-2 w-50 big-input" placeholder="How much will you donate?" aria-label="donation-amount" id="donation-input" aria-describedby="basic-addon2">
-                      <a class="outline-btn big-btn" onclick="donate(100)"type="button">Donate!</a>
+                      <a class="outline-btn big-btn" onclick="donate()"type="button">Donate!</a>
                   </form>
+              	</div>
               </div>
             </div>  
           </div>
@@ -181,7 +184,7 @@
           <div class="col-lg-12 footer-info">
             <img src="https://siasky.net/MABCAHNo_zefzM7xWBtw1slasgMtsBIiCBfAZfje5Zos2Q" alt="AlmostThere">
             <p>Do you want to crowdfound a project of your own? With <a href="/almost-there-landing-page">Almost There</a> it's as easy as it gets. Create your own campaign and start planning. You're Almost There!</p>
-            <p>Almost There, created by lunafromthemoon. Powered by SIA and Near.</p>
+            <p>Almost There, created by lunafromthemoon. Powered by <a href="https://siasky.net/">SIA</a> and <a href="https://near.org/">Near</a>.</p>
           </div>
         </div>
       </div>
@@ -211,21 +214,55 @@
   <script type="text/javascript" src="https://siasky.net/JAD9Lc7d-JgWxm9q0FM62diQwT8191YNTO7ucn80_cfY5Q"></script>
   <!-- style.js -->
   <script src="https://siasky.net/CAABxphqButp3eASD561MMfj9ptsa0fPF83eYn6IrejNog" type="text/javascript"></script>
-  
+
+  <script src="https://cdn.jsdelivr.net/gh/nearprotocol/near-api-js/dist/near-api-js.js"></script>
+
   <script type="text/javascript">
-	// if (!window.ProgressBar){
-	//   ProgressBar = require('progressbar.js');
-	// }
+
+	const CONTRACT_NAME = $('meta[name=contract-name]').attr("content");
+	const CAMPAIGN_ID = $('meta[name=campaign-id]').attr("content");
+	const nearConfig = getConfig('development',CONTRACT_NAME)
+
+	window.login = function login() {
+	  window.walletConnection.requestSignIn(nearConfig.contractName)
+	}
+
+	window.logout = function logout() {
+	  window.walletConnection.signOut()
+	  window.location.replace(window.location.origin + window.location.pathname)
+	}
 
 	let progressbar,moneyBar;
 	let totalDonations = 0;
 
 	$(document).ready(function() {
-	  
+	  window.nearInitPromise = initNEAR(nearConfig)
+	  .then(connected => { if (connected) loginFlow()
+	                       else logoutFlow() })
 	  initCountdown();
-	  initBars();
-	  initDonors();
+	  getCampaign(CAMPAIGN_ID).then(campaign=>{
+	  	if (!campaign){
+	  		// campaign is finished
+	  	} else {
+	  		window.campaign = campaign;
+		  	initBars();
+		  	initDonors();
+	  	}
+	  })
 	})
+
+	function loginFlow(){
+	  $("#not-logged").hide();
+	  $("#logged").show();
+	  $("#username").html(accountId);
+	  initDonors();
+	}
+
+	function logoutFlow(){
+	  $("#not-logged").show();
+	  $("#logged").hide();
+	  $("#logout-btn").hide();
+	}
 
 	function initCountdown() {
 	 let $countdownNumbers = {
@@ -246,37 +283,20 @@
 	const star = '<i class="fa fa-paper-plane-o"></i>';
 
 	function initDonors(){
-
+		let donations = campaign ? campaign.donors : []
 	  var isDonor = false;
 	  $("#donors").html("")
-	  var donations = [];
-	  for (var i = 0; i < 50; i++) {
-	    var total = 10;
-	    if (Math.random()>0.5){
-	      if (Math.random()>0.5){
-	        total = 15;
-	      } else {
-	        if (Math.random()>0.5){
-	          total = 50;
-	        } else {
-	          total = 100;
-	        }
-	      }
-	    }
-	    donations.push({total:total,from:`test-donor-${i}`});
-	  }
-
 	  donations.forEach(donor=>{
 	    var donorClass = "small-donor";
-	    if (donor.total >=100){
+	    if (donor.amount >=100 || donor.id == accountId){
 	      donorClass="star-donor"
-	      donor.from = donor.from+star
-	    } else if (donor.total >= 50){
+	      donor.id = donor.id+star
+	    } else if (donor.amount >= 50){
 	      donorClass="big-donor"
-	    } else if (donor.total >= 15){
+	    } else if (donor.amount >= 15){
 	      donorClass="medium-donor"
 	    }
-	    $("#donors").append(`<span class="${donorClass}"> ${donor.from} </span>`);
+	    $("#donors").append(`<span class="${donorClass}"> ${donor.id} </span>`);
 	  });
 	  if (isDonor){
 	    $("#supporters-section h3").html("This campaign will be a success thanks to you!<br><br>Thanks for your donation!</h3>");
@@ -289,11 +309,8 @@
 	  var colorTrail = '#eee';
 
 	  var campaignGoal = parseFloat($("#donate-section").attr("campaign-goal"));
-	  totalDonations = campaignGoal*0.6;
 
-	  // var line = new ProgressBar.Line('#progressbar');
 	  progressbar = new ProgressBar.Circle('#progressbarPercentage', {
-	        // color: '#FCB03C',
 	        duration: 3000,
 	        strokeWidth: 6,
 	        trailWidth: 1,
@@ -309,7 +326,6 @@
 	        } else {
 	          progressbar.setText(value+"%");
 	        }
-	        // progressbar.text.style.color = state.color
 	      },
 	        svgStyle:{
 	          height: '500px'
@@ -323,7 +339,6 @@
 	  progressbar.text.style.fontSize = '6rem';
 	  progressbar.text.style.color = '#FFF';
 	  moneyBar = new ProgressBar.Line('#progressbarMoney', {
-	      // color: '#FCB03C',
 	      duration: 3000,
 	      strokeWidth: 6,
 	      trailWidth: 1,
@@ -336,13 +351,15 @@
 	        var value = Math.round(moneyBar.value() * campaignGoal);
 	          $("#donations-info span").html(value)
 	          $("#goal-info").html(`Only ${campaignGoal-value} more to the goal!`)
-	      // moneyBar.text.style.color = state.color
 	    },
 	  });
 	}
 
 	window.updateBars = function updateBars(force){
 	  var campaignGoal = parseFloat($("#donate-section").attr("campaign-goal"));
+	  if (campaign){
+	  	totalDonations = campaign.money_funded;
+	  }
 	  var campaignProgress = 1 - (campaignGoal - totalDonations) / campaignGoal;
 	  if (campaignProgress > 1) campaignProgress = 1;
 	  if (moneyBar.value() == 0 || force){
@@ -372,12 +389,87 @@
 	window.donate = function(){
 	  var amount = parseFloat($('#donation-input').val());
 	  if (!isNaN(amount)){
-	      totalDonations+=amount;
-	      updateBars(true);
+	      donateTo(CAMPAIGN_ID,amount);
 	  }
 	}
 
+	// near connection
 
+	async function initNEAR(nearConfig) {
+	  // Initialize connection to the NEAR testnet - CALL IT ON LOAD
+	  const near = await nearApi.connect(
+	    Object.assign({deps:{keyStore: new nearApi.keyStores.BrowserLocalStorageKeyStore()}},
+	                  nearConfig)
+	  )
+
+	  // Initializing Wallet based Account
+	  window.walletConnection = new nearApi.WalletConnection(near)
+
+	  // Getting the Account ID
+	  window.accountId = window.walletConnection.getAccountId()
+
+	  // Initializing contract APIs
+	  window.contract = new nearApi.Contract(
+	    window.walletConnection.account(),
+	    nearConfig.contractName,
+	    {viewMethods: [],
+	     changeMethods: ['startProject', 'donateTo', 'getProjectOf']}
+	  )
+	  return walletConnection.isSignedIn()
+	}
+
+	async function getCampaign(id){
+	  // Returns {id:string, time_init:timestamp, time_end:timestamp,
+	  //          money_objective:u128, money_funded:u128, donors:list[Donor]}
+	  // where
+	  //         Donor = {id:string, amount:u128}
+	  let project = await contract.getProjectOf({id})
+	  if(!project){return}
+
+	  project.time_init = project.time_init/1000000
+	  project.time_end = project.time_end/1000000
+	  project.money_objective = nearApi.utils.format.formatNearAmount(project.money_objective).toString()
+	  project.money_funded = nearApi.utils.format.formatNearAmount(project.money_funded).toString()
+	  
+	  for (let i=0; i<project.donors.length; i++){
+	    project.donors[i].amount = nearApi.utils.format.formatNearAmount(project.donors[i].amount).toString()
+	  }
+
+	  return project
+	}
+
+	async function donateTo(id, money_amount){
+	  // OPENS another webpage to pay
+	  let amount = nearApi.utils.format.parseNearAmount(money_amount.toString())
+	  let account = window.walletConnection.account()
+	  account.functionCall(nearConfig.contractName, 'donateTo', {id}, 0, amount)
+	}
+
+	function getConfig(env,contractName) {
+	  switch (env) {
+
+	  case 'production':
+	  case 'mainnet':
+	    return {
+	      networkId: 'mainnet',
+	      nodeUrl: 'https://rpc.mainnet.near.org',
+	      contractName: contractName,
+	      walletUrl: 'https://wallet.near.org',
+	      helperUrl: 'https://helper.mainnet.near.org',
+	      explorerUrl: 'https://explorer.mainnet.near.org',
+	    }
+	  case 'development':
+	  case 'testnet':
+	    return {
+	      networkId: 'testnet',
+	      nodeUrl: 'https://rpc.testnet.near.org',
+	      contractName: contractName,
+	      walletUrl: 'https://wallet.testnet.near.org',
+	      helperUrl: 'https://helper.testnet.near.org',
+	      explorerUrl: 'https://explorer.testnet.near.org',
+	    }
+	  }
+	}
 
 
   </script>

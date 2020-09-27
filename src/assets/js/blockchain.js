@@ -2,6 +2,8 @@ import { connect, utils, Contract, keyStores, WalletConnection } from 'near-api-
 import getConfig from './config'
 
 const nearConfig = getConfig('development')
+console.log(" asdf            nearConfig")
+console.log(nearConfig)
 window.nearConfig = nearConfig
 
 // ===== API =====

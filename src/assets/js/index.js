@@ -5,6 +5,7 @@ window.login = login;
 window.logout = logout;
 
 let previewTemplate = "https://siasky.net/GAD69XHlmukIiTXkG_7RSS4HyQHSvgZN5k42kWGf9YmasQ";
+let finalTemplate = "https://siasky.net/GAD69XHlmukIiTXkG_7RSS4HyQHSvgZN5k42kWGf9YmasQ";
 
 $(document).ready(function() {
   window.accountId = null;
@@ -114,25 +115,59 @@ window.previewCampaign =  function(){
   $("#preview-btn").html("Creating preview "+spinner);
 
   $.get(previewTemplate)
-  .done(async (data) => {
+  .done(async (template) => {
     // console.log(data)
-    data = data.replace("TEMPLATE_OWNER",campaignData.owner);
-    data = data.replace("TEMPLATE_TITLE",`Help ${campaignData.title.who} ${campaignData.title.what}`);
-    data = data.replace("TEMPLATE_WHO",campaignData.title.who);
-    data = data.replace("TEMPLATE_WHAT",campaignData.title.what);
-    data = data.replace("TEMPLATE_IMAGE_BG",campaignData.image);
-    data = data.replace("TEMPLATE_IMAGE",campaignData.image);
-    data = data.replace("TEMPLATE_DESCRIPTION",campaignData.description);
-    data = data.replace("TEMPLATE_VIDEO",campaignData.video);
-    data = data.replace("TEMPLATE_GOAL",campaignData.goal);
-    data = data.replace("TEMPLATE_DATE",campaignData.endDate);
+    let html = applyTemplate(template,campaignData);
 
     $("#preview-btn").html("Uploading preview "+spinner);
-    let htmlLink = await upload_html_to_sia(data);
+    let htmlLink = await upload_html_to_sia(html);
     $("#preview-btn").html('Check the preview');
+    $("#publish-btn").show();
     window.open('https://siasky.net/'+htmlLink,'_blank');
 
   });
+}
+
+window.publishCampaign =  function(){
+  
+  let campaignData = validateCampaign();
+  if (!campaignData){
+    // campaign error
+    $("#publish-btn").hide();
+    return 
+  }
+
+  $("#publish-btn").html("Creating campaign "+spinner);
+
+  $.get(finalTemplate)
+  .done(async (template) => {
+    // console.log(data)
+    let html = applyTemplate(template,campaignData);
+
+    $("#publish-btn").html("Publishing "+spinner);
+    let htmlLink = await upload_html_to_sia(html);
+    $("#publish-btn").html('Check the preview');
+    // $("#publish-btn").show();
+    window.open('https://siasky.net/'+htmlLink,'_blank');
+
+  });
+}
+
+function applyTemplate(template,data){
+  if (data.id){
+    template = template.replace("TEMPLATE_ID",data.id);
+  }
+  template = template.replace("TEMPLATE_OWNER",data.owner);
+  template = template.replace("TEMPLATE_TITLE",`Help ${data.title.who} ${data.title.what}`);
+  template = template.replace("TEMPLATE_WHO",data.title.who);
+  template = template.replace("TEMPLATE_WHAT",data.title.what);
+  template = template.replace("TEMPLATE_IMAGE_BG",data.image);
+  template = template.replace("TEMPLATE_IMAGE",data.image);
+  template = template.replace("TEMPLATE_DESCRIPTION",data.description);
+  template = template.replace("TEMPLATE_VIDEO",data.video);
+  template = template.replace("TEMPLATE_GOAL",data.goal);
+  template = template.replace("TEMPLATE_DATE",data.endDate);
+  return template;
 }
 
 $("#upload-image-input").change(uploadFilePreview)
