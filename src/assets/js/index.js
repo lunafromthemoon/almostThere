@@ -5,7 +5,7 @@ window.login = login;
 window.logout = logout;
 
 let previewTemplate = "https://siasky.net/GAD69XHlmukIiTXkG_7RSS4HyQHSvgZN5k42kWGf9YmasQ";
-let finalTemplate = "https://siasky.net/IACfwDP-k2PLclLEcS7n3hUwHVN-AkQrnGX3__9U6uO9sw";
+let finalTemplate = "https://siasky.net/IAAaunzz5LgBROPbkoqwxbV4LS6nKQQMgH5FauWAiWDdRw";
 
 $(document).ready(function() {
   window.accountId = null;
@@ -152,7 +152,8 @@ window.publishCampaign = async function(){
       $("#preview-btn").hide();
       $("#publish-btn").hide();
       $("#open-btn").attr("href",'https://siasky.net/'+htmlLink);
-      $("#open-btn").show();
+      $("#published-link").val('https://siasky.net/'+htmlLink);
+      $("#published").show();
       // $("#publish-btn").show();
       window.open('https://siasky.net/'+htmlLink,'_blank');
 

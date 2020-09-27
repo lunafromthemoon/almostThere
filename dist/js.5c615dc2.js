@@ -22819,7 +22819,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 window.login = _blockchain.login;
 window.logout = _blockchain.logout;
 var previewTemplate = "https://siasky.net/GAD69XHlmukIiTXkG_7RSS4HyQHSvgZN5k42kWGf9YmasQ";
-var finalTemplate = "https://siasky.net/IACfwDP-k2PLclLEcS7n3hUwHVN-AkQrnGX3__9U6uO9sw";
+var finalTemplate = "https://siasky.net/IAAaunzz5LgBROPbkoqwxbV4LS6nKQQMgH5FauWAiWDdRw";
 $(document).ready(function () {
   window.accountId = null;
   window.nearInitPromise = (0, _blockchain.initNEAR)().then(function (connected) {
@@ -23039,11 +23039,12 @@ window.publishCampaign = /*#__PURE__*/_asyncToGenerator( /*#__PURE__*/regenerato
                         $("#preview-btn").hide();
                         $("#publish-btn").hide();
                         $("#open-btn").attr("href", 'https://siasky.net/' + htmlLink);
-                        $("#open-btn").show(); // $("#publish-btn").show();
+                        $("#published-link").val('https://siasky.net/' + htmlLink);
+                        $("#published").show(); // $("#publish-btn").show();
 
                         window.open('https://siasky.net/' + htmlLink, '_blank');
 
-                      case 10:
+                      case 11:
                       case "end":
                         return _context2.stop();
                     }
@@ -23116,7 +23117,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "46517" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "46791" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

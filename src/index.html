@@ -176,7 +176,13 @@
               <h2>All ready!</h2>
               <a class="outline-btn big-btn" onclick="previewCampaign()" id="preview-btn" type="button">Check the preview</i></a>
               <a class="outline-btn big-btn" onclick="publishCampaign()" id="publish-btn" style="display: none" type="button">Publish!</i></a>
-              <a class="outline-btn big-btn" id="open-btn" style="display: none" target="_blank">Check it out!</i></a>
+              <div id="published" class="text-center my-5" style="display: none">
+                <form class="form-inline justify-content-center">
+                  <input type="text" class="form-control w-100 big-input" readonly="" placeholder="This is your link" aria-label="published-link" id="published-link" aria-describedby="published-link">
+                </form>
+                <a class="outline-btn big-btn" id="open-btn" target="_blank">Check it out!</i></a>
+              </div>
+              
             </div>
           </div>
         </div>
