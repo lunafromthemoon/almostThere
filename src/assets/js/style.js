@@ -29,17 +29,14 @@
     $('#header').addClass('header-scrolled');
   }
 
-  // Initialize Venobox
-  $(window).on('load', function() {
-    $('.venobox').venobox({
-      bgcolor: '',
-      overlayColor: 'rgba(6, 12, 34, 0.85)',
-      closeBackground: '',
-      closeColor: '#fff',
-      share: false
-    });
-  });
+  if ($('#campaign-video').length){
+    $('#campaign-video').magnificPopup({
+      type:'inline',
+      midClick: true // Allow opening popup on middle mouse click. Always set it to true if you don't provide alternative source in href.
+    }); 
+  }
 
+  
   // Initiate superfish on nav menu
   $('.nav-menu').superfish({
     animation: {

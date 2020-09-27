@@ -15,28 +15,28 @@ let campaign = {
     endDate: "01/01/2021",
     totalDonations: 415,
     donations:[
-      {from:"donnor1.testnet",total:5},
+      {from:"wanker2.testnet",total:5},
       {from:"medium.testnet",total:30},
-      {from:"bigdonnor.testnet",total:50},
-      {from:"stardonnor.testnet",total:150},
-      {from:"donnor3.testnet",total:10},
-      {from:"donnor4.testnet",total:10},
-      {from:"donnor5.testnet",total:10},
-      {from:"donnor6.testnet",total:10},
-      {from:"donnor7.testnet",total:10},
-      {from:"donnor8.testnet",total:10},
-      {from:"donnor9.testnet",total:10},
-      {from:"donnor10.testnet",total:10},
-      {from:"donnor11.testnet",total:10},
-      {from:"donnor12.testnet",total:10},
-      {from:"donnor13.testnet",total:10},
-      {from:"donnor14.testnet",total:10},
-      {from:"donnor15.testnet",total:10},
-      {from:"donnor16.testnet",total:10},
-      {from:"donnor17.testnet",total:10},
-      {from:"donnor18.testnet",total:10},
-      {from:"donnor19.testnet",total:10},
-      {from:"donnor20.testnet",total:10},
+      {from:"bigdonor.testnet",total:50},
+      {from:"stardonor.testnet",total:150},
+      {from:"donor3.testnet",total:10},
+      {from:"donor4.testnet",total:10},
+      {from:"donor5.testnet",total:10},
+      {from:"donor6.testnet",total:10},
+      {from:"donor7.testnet",total:10},
+      {from:"donor8.testnet",total:10},
+      {from:"donor9.testnet",total:10},
+      {from:"donor10.testnet",total:10},
+      {from:"donor11.testnet",total:10},
+      {from:"donor12.testnet",total:10},
+      {from:"donor13.testnet",total:10},
+      {from:"donor14.testnet",total:10},
+      {from:"donor15.testnet",total:10},
+      {from:"donor16.testnet",total:10},
+      {from:"donor17.testnet",total:10},
+      {from:"donor18.testnet",total:10},
+      {from:"donor19.testnet",total:10},
+      {from:"donor20.testnet",total:10},
       ]
 }
 
@@ -53,35 +53,41 @@ function initPage(){
     minutes: $('#countdown-minutes'),
     seconds: $('#countdown-seconds')
   };
-  $('#countdown').countdown(campaign.endDate, function(event) {
+  var endDate = ('#countdown').attr('target-date');
+  if (!endDate) endDate = campaign.endDate;
+  $('#countdown').countdown(endDate, function(event) {
     $countdownNumbers.days.text(event.offset.totalDays);
     $countdownNumbers.hours.text(('0' + event.offset.hours).slice(-2));
     $countdownNumbers.minutes.text(('0' + event.offset.minutes).slice(-2));
     $countdownNumbers.seconds.text(('0' + event.offset.seconds).slice(-2));
   });
   initBars();
-  initDonnors();
+  initDonors();
   
 }
 
-function initDonnors(){
-  var isDonnor = false;
-  $("#donnors").html("")
-  campaign.donations.forEach(donnor=>{
-    var donnorClass = "small-donnor";
-    if (donnor.from == accountId){
-      isDonnor = true;
-      donnorClass = "star-donnor";
-    } else if (donnor.total >=100){
-      donnorClass="star-donnor"
-    } else if (donnor.total >= 50){
-      donnorClass="big-donnor"
-    } else if (donnor.total >= 15){
-      donnorClass="medium-donnor"
+const star = ' <i class="fa fa-star-o"></i> ';
+
+function initDonors(){
+
+  var isDonor = false;
+  $("#donors").html("")
+  campaign.donations.forEach(donor=>{
+    var donorClass = "small-donor";
+    if (donor.from == accountId){
+      isDonor = true;
+      donorClass = "star-donor";
+      donor.from = star+donor.from+star
+    } else if (donor.total >=100){
+      donorClass="star-donor"
+    } else if (donor.total >= 50){
+      donorClass="big-donor"
+    } else if (donor.total >= 15){
+      donorClass="medium-donor"
     }
-    $("#donnors").append(`<span class="${donnorClass}"> ${donnor.from} </span>`);
+    $("#donors").append(`<span class="${donorClass}"> ${donor.from} </span>`);
   });
-  if (isDonnor){
+  if (isDonor){
     $("#supporters-section h3").html("This campaign will be a success thanks to you!<br><br>Thanks for your donation!</h3>");
   }
 }
@@ -167,7 +173,7 @@ function loginFlow(){
   $("#not-logged").hide();
   $("#logged").show();
   $("#username").html(accountId);
-  initDonnors();
+  initDonors();
 }
 
 function logoutFlow(){
@@ -188,12 +194,12 @@ window.addDonation = function(amount){
 }
 
 window.donate = function(){
-    var amount = parseFloat($('#donation-input').val());
-    if (!isNaN(amount)){
-        campaign.donations.push({from:accountId,total:amount});
-        campaign.totalDonations+=amount;
-        updateBars(true);
-    }
+  var amount = parseFloat($('#donation-input').val());
+  if (!isNaN(amount)){
+      campaign.donations.push({from:accountId,total:amount});
+      campaign.totalDonations+=amount;
+      updateBars(true);
+  }
     
 }
 

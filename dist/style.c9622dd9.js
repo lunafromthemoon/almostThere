@@ -145,18 +145,16 @@ parcelRequire = (function (modules, cache, entry, globalName) {
 
   if ($(window).scrollTop() > 100) {
     $('#header').addClass('header-scrolled');
-  } // Initialize Venobox
+  }
 
+  if ($('#campaign-video').length) {
+    $('#campaign-video').magnificPopup({
+      type: 'inline',
+      midClick: true // Allow opening popup on middle mouse click. Always set it to true if you don't provide alternative source in href.
 
-  $(window).on('load', function () {
-    $('.venobox').venobox({
-      bgcolor: '',
-      overlayColor: 'rgba(6, 12, 34, 0.85)',
-      closeBackground: '',
-      closeColor: '#fff',
-      share: false
     });
-  }); // Initiate superfish on nav menu
+  } // Initiate superfish on nav menu
+
 
   $('.nav-menu').superfish({
     animation: {
@@ -319,7 +317,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "36367" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "36317" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

@@ -23708,7 +23708,7 @@ var campaign = {
   endDate: "01/01/2021",
   totalDonations: 415,
   donations: [{
-    from: "donnor1.testnet",
+    from: "wanker2.testnet",
     total: 5
   }, {
     from: "medium.testnet",
@@ -23798,6 +23798,8 @@ function initPage() {
   initDonnors();
 }
 
+var star = ' <i class="fa fa-star-o"></i> ';
+
 function initDonnors() {
   var isDonnor = false;
   $("#donnors").html("");
@@ -23807,6 +23809,7 @@ function initDonnors() {
     if (donnor.from == accountId) {
       isDonnor = true;
       donnorClass = "star-donnor";
+      donnor.from = star + donnor.from + star;
     } else if (donnor.total >= 100) {
       donnorClass = "star-donnor";
     } else if (donnor.total >= 50) {
@@ -23974,7 +23977,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "36367" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "39383" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
