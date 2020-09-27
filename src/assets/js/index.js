@@ -182,6 +182,7 @@ function applyTemplate(template,data){
   template = template.replace("TEMPLATE_WHAT",data.title.what);
   template = template.replace("TEMPLATE_IMAGE_BG",data.image);
   template = template.replace("TEMPLATE_IMAGE",data.image);
+  template = template.replace("TEMPLATE_META_IMAGE",data.image);
   template = template.replace("TEMPLATE_DESCRIPTION",data.description);
   template = template.replace("TEMPLATE_VIDEO",data.video);
   template = template.replace("TEMPLATE_GOAL",data.goal);
