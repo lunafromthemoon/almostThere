@@ -40,14 +40,14 @@ export function startProject(time_end:string, money_objective:u128):bool{
   let id:string = context.sender + "-" + now.toString()
   
   // Check if it has a project running already, if it does, return
-  let currently = projects.get(context.sender)
+  let currently = projects.get(id)
   if(currently){
       if(currently.time_end < now){return false}
   }
 
   // Create new project
   let project = new Project(id, context.sender, now, ftime, money_objective)
-  projects.set(context.sender, project)
+  projects.set(id, project)
   return true
 }
 
