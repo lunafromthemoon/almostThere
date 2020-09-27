@@ -22547,6 +22547,8 @@ function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
 var nearConfig = (0, _config.default)('development');
+console.log(" asdf            nearConfig");
+console.log(nearConfig);
 window.nearConfig = nearConfig; // ===== API =====
 
 function login() {
@@ -22817,6 +22819,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 window.login = _blockchain.login;
 window.logout = _blockchain.logout;
 var previewTemplate = "https://siasky.net/GAD69XHlmukIiTXkG_7RSS4HyQHSvgZN5k42kWGf9YmasQ";
+var finalTemplate = "https://siasky.net/GAD69XHlmukIiTXkG_7RSS4HyQHSvgZN5k42kWGf9YmasQ";
 $(document).ready(function () {
   window.accountId = null;
   window.nearInitPromise = (0, _blockchain.initNEAR)().then(function (connected) {
@@ -22847,14 +22850,14 @@ function uploadFilePreview() {
 }
 
 function _uploadFilePreview() {
-  _uploadFilePreview = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2() {
+  _uploadFilePreview = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee3() {
     var prev, link, reader;
-    return regeneratorRuntime.wrap(function _callee2$(_context2) {
+    return regeneratorRuntime.wrap(function _callee3$(_context3) {
       while (1) {
-        switch (_context2.prev = _context2.next) {
+        switch (_context3.prev = _context3.next) {
           case 0:
             if (!(this.files && this.files[0])) {
-              _context2.next = 7;
+              _context3.next = 7;
               break;
             }
 
@@ -22868,11 +22871,11 @@ function _uploadFilePreview() {
               $("#img-btn").html(spinner);
             }
 
-            _context2.next = 5;
+            _context3.next = 5;
             return (0, _blockchain.upload_file_to_sia)(this.files[0]);
 
           case 5:
-            link = _context2.sent;
+            link = _context3.sent;
 
             if (this.files[0].type.includes('video')) {
               $("#upload-video-preview").attr('src', 'https://siasky.net/' + link);
@@ -22887,10 +22890,10 @@ function _uploadFilePreview() {
 
           case 7:
           case "end":
-            return _context2.stop();
+            return _context3.stop();
         }
       }
-    }, _callee2, this);
+    }, _callee3, this);
   }));
   return _uploadFilePreview.apply(this, arguments);
 }
@@ -22958,33 +22961,25 @@ window.previewCampaign = function () {
 
   $("#preview-btn").html("Creating preview " + spinner);
   $.get(previewTemplate).done( /*#__PURE__*/function () {
-    var _ref = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(data) {
-      var htmlLink;
+    var _ref = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(template) {
+      var html, htmlLink;
       return regeneratorRuntime.wrap(function _callee$(_context) {
         while (1) {
           switch (_context.prev = _context.next) {
             case 0:
               // console.log(data)
-              data = data.replace("TEMPLATE_OWNER", campaignData.owner);
-              data = data.replace("TEMPLATE_TITLE", "Help ".concat(campaignData.title.who, " ").concat(campaignData.title.what));
-              data = data.replace("TEMPLATE_WHO", campaignData.title.who);
-              data = data.replace("TEMPLATE_WHAT", campaignData.title.what);
-              data = data.replace("TEMPLATE_IMAGE_BG", campaignData.image);
-              data = data.replace("TEMPLATE_IMAGE", campaignData.image);
-              data = data.replace("TEMPLATE_DESCRIPTION", campaignData.description);
-              data = data.replace("TEMPLATE_VIDEO", campaignData.video);
-              data = data.replace("TEMPLATE_GOAL", campaignData.goal);
-              data = data.replace("TEMPLATE_DATE", campaignData.endDate);
+              html = applyTemplate(template, campaignData);
               $("#preview-btn").html("Uploading preview " + spinner);
-              _context.next = 13;
-              return (0, _blockchain.upload_html_to_sia)(data);
+              _context.next = 4;
+              return (0, _blockchain.upload_html_to_sia)(html);
 
-            case 13:
+            case 4:
               htmlLink = _context.sent;
               $("#preview-btn").html('Check the preview');
+              $("#publish-btn").show();
               window.open('https://siasky.net/' + htmlLink, '_blank');
 
-            case 16:
+            case 8:
             case "end":
               return _context.stop();
           }
@@ -22997,6 +22992,67 @@ window.previewCampaign = function () {
     };
   }());
 };
+
+window.publishCampaign = function () {
+  var campaignData = validateCampaign();
+
+  if (!campaignData) {
+    // campaign error
+    $("#publish-btn").hide();
+    return;
+  }
+
+  $("#publish-btn").html("Creating campaign " + spinner);
+  $.get(finalTemplate).done( /*#__PURE__*/function () {
+    var _ref2 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2(template) {
+      var html, htmlLink;
+      return regeneratorRuntime.wrap(function _callee2$(_context2) {
+        while (1) {
+          switch (_context2.prev = _context2.next) {
+            case 0:
+              // console.log(data)
+              html = applyTemplate(template, campaignData);
+              $("#publish-btn").html("Publishing " + spinner);
+              _context2.next = 4;
+              return (0, _blockchain.upload_html_to_sia)(html);
+
+            case 4:
+              htmlLink = _context2.sent;
+              $("#publish-btn").html('Check the preview'); // $("#publish-btn").show();
+
+              window.open('https://siasky.net/' + htmlLink, '_blank');
+
+            case 7:
+            case "end":
+              return _context2.stop();
+          }
+        }
+      }, _callee2);
+    }));
+
+    return function (_x2) {
+      return _ref2.apply(this, arguments);
+    };
+  }());
+};
+
+function applyTemplate(template, data) {
+  if (data.id) {
+    template = template.replace("TEMPLATE_ID", data.id);
+  }
+
+  template = template.replace("TEMPLATE_OWNER", data.owner);
+  template = template.replace("TEMPLATE_TITLE", "Help ".concat(data.title.who, " ").concat(data.title.what));
+  template = template.replace("TEMPLATE_WHO", data.title.who);
+  template = template.replace("TEMPLATE_WHAT", data.title.what);
+  template = template.replace("TEMPLATE_IMAGE_BG", data.image);
+  template = template.replace("TEMPLATE_IMAGE", data.image);
+  template = template.replace("TEMPLATE_DESCRIPTION", data.description);
+  template = template.replace("TEMPLATE_VIDEO", data.video);
+  template = template.replace("TEMPLATE_GOAL", data.goal);
+  template = template.replace("TEMPLATE_DATE", data.endDate);
+  return template;
+}
 
 $("#upload-image-input").change(uploadFilePreview);
 $("#upload-video-input").change(uploadFilePreview);
@@ -23028,7 +23084,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "36317" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "44903" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

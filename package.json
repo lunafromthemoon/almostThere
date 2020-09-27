@@ -6,7 +6,7 @@
     "build": "npm run build:contract && npm run build:web",
     "build:contract": "asb",
     "build:contract:debug": "asb --target debug",
-    "build:web": "parcel build src/index.html src/campaign.html --public-url ./",
+    "build:web": "parcel build src/index.html --public-url ./",
     "dev:deploy:contract": "near dev-deploy",
     "deploy:contract": "near deploy",
     "deploy:pages": "gh-pages -d dist/",
