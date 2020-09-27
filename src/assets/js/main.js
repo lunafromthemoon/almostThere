@@ -1,9 +1,8 @@
 
 import 'regenerator-runtime/runtime'
-import {initNEAR, login, logout, getProject, startProject, donateTo } from './blockchain'
+import {initNEAR, login, logout, getProject, donateTo } from './blockchain'
 
 window.getProject = getProject;
-window.startProject = startProject;
 window.donateTo = donateTo;
 
 let ProgressBar = require('progressbar.js');
@@ -16,28 +15,28 @@ let campaign = {
     endDate: "01/01/2021",
     totalDonations: 415,
     donations:[
-      {from:"donnor1.testnet",total:5},
+      {from:"wanker2.testnet",total:5},
       {from:"medium.testnet",total:30},
-      {from:"bigdonnor.testnet",total:50},
-      {from:"stardonnor.testnet",total:150},
-      {from:"donnor3.testnet",total:10},
-      {from:"donnor4.testnet",total:10},
-      {from:"donnor5.testnet",total:10},
-      {from:"donnor6.testnet",total:10},
-      {from:"donnor7.testnet",total:10},
-      {from:"donnor8.testnet",total:10},
-      {from:"donnor9.testnet",total:10},
-      {from:"donnor10.testnet",total:10},
-      {from:"donnor11.testnet",total:10},
-      {from:"donnor12.testnet",total:10},
-      {from:"donnor13.testnet",total:10},
-      {from:"donnor14.testnet",total:10},
-      {from:"donnor15.testnet",total:10},
-      {from:"donnor16.testnet",total:10},
-      {from:"donnor17.testnet",total:10},
-      {from:"donnor18.testnet",total:10},
-      {from:"donnor19.testnet",total:10},
-      {from:"donnor20.testnet",total:10},
+      {from:"bigdonor.testnet",total:50},
+      {from:"stardonor.testnet",total:150},
+      {from:"donor3.testnet",total:10},
+      {from:"donor4.testnet",total:10},
+      {from:"donor5.testnet",total:10},
+      {from:"donor6.testnet",total:10},
+      {from:"donor7.testnet",total:10},
+      {from:"donor8.testnet",total:10},
+      {from:"donor9.testnet",total:10},
+      {from:"donor10.testnet",total:10},
+      {from:"donor11.testnet",total:10},
+      {from:"donor12.testnet",total:10},
+      {from:"donor13.testnet",total:10},
+      {from:"donor14.testnet",total:10},
+      {from:"donor15.testnet",total:10},
+      {from:"donor16.testnet",total:10},
+      {from:"donor17.testnet",total:10},
+      {from:"donor18.testnet",total:10},
+      {from:"donor19.testnet",total:10},
+      {from:"donor20.testnet",total:10},
       ]
 }
 
@@ -54,35 +53,41 @@ function initPage(){
     minutes: $('#countdown-minutes'),
     seconds: $('#countdown-seconds')
   };
-  $('#countdown').countdown(campaign.endDate, function(event) {
+  var endDate = ('#countdown').attr('target-date');
+  if (!endDate) endDate = campaign.endDate;
+  $('#countdown').countdown(endDate, function(event) {
     $countdownNumbers.days.text(event.offset.totalDays);
     $countdownNumbers.hours.text(('0' + event.offset.hours).slice(-2));
     $countdownNumbers.minutes.text(('0' + event.offset.minutes).slice(-2));
     $countdownNumbers.seconds.text(('0' + event.offset.seconds).slice(-2));
   });
   initBars();
-  initDonnors();
+  initDonors();
   
 }
 
-function initDonnors(){
-  var isDonnor = false;
-  $("#donnors").html("")
-  campaign.donations.forEach(donnor=>{
-    var donnorClass = "small-donnor";
-    if (donnor.from == accountId){
-      isDonnor = true;
-      donnorClass = "star-donnor";
-    } else if (donnor.total >=100){
-      donnorClass="star-donnor"
-    } else if (donnor.total >= 50){
-      donnorClass="big-donnor"
-    } else if (donnor.total >= 15){
-      donnorClass="medium-donnor"
+const star = ' <i class="fa fa-star-o"></i> ';
+
+function initDonors(){
+
+  var isDonor = false;
+  $("#donors").html("")
+  campaign.donations.forEach(donor=>{
+    var donorClass = "small-donor";
+    if (donor.from == accountId){
+      isDonor = true;
+      donorClass = "star-donor";
+      donor.from = star+donor.from+star
+    } else if (donor.total >=100){
+      donorClass="star-donor"
+    } else if (donor.total >= 50){
+      donorClass="big-donor"
+    } else if (donor.total >= 15){
+      donorClass="medium-donor"
     }
-    $("#donnors").append(`<span class="${donnorClass}"> ${donnor.from} </span>`);
+    $("#donors").append(`<span class="${donorClass}"> ${donor.from} </span>`);
   });
-  if (isDonnor){
+  if (isDonor){
     $("#supporters-section h3").html("This campaign will be a success thanks to you!<br><br>Thanks for your donation!</h3>");
   }
 }
@@ -143,7 +148,7 @@ function initBars(){
     });
 }
 
-function updateBars(force){
+window.updateBars = function updateBars(force){
     var campaignProgress = 1 - (campaign.goal - campaign.totalDonations) / campaign.goal;
     if (campaignProgress > 1) campaignProgress = 1;
     if (moneyBar.value() == 0 || force){
@@ -168,7 +173,7 @@ function loginFlow(){
   $("#not-logged").hide();
   $("#logged").show();
   $("#username").html(accountId);
-  initDonnors();
+  initDonors();
 }
 
 function logoutFlow(){
@@ -189,193 +194,16 @@ window.addDonation = function(amount){
 }
 
 window.donate = function(){
-    var amount = parseFloat($('#donation-input').val());
-    if (!isNaN(amount)){
-        campaign.donations.push({from:accountId,total:amount});
-        campaign.totalDonations+=amount;
-        updateBars(true);
-    }
+  var amount = parseFloat($('#donation-input').val());
+  if (!isNaN(amount)){
+      campaign.donations.push({from:accountId,total:amount});
+      campaign.totalDonations+=amount;
+      updateBars(true);
+  }
     
 }
 
-!(function($) {
-  "use strict";
-
-  // Back to top button
-  $(window).scroll(function() {
-    if ($(this).scrollTop() > 100) {
-      $('.back-to-top').fadeIn('slow');
-    } else {
-      $('.back-to-top').fadeOut('slow');
-    }
-  });
-  $('.back-to-top').click(function() {
-    $('html, body').animate({
-      scrollTop: 0
-    }, 1500, 'easeInOutExpo');
-    return false;
-  });
-
-  // Header fixed on scroll
-  $(window).scroll(function() {
-    if ($(this).scrollTop() > 100) {
-      $('#header').addClass('header-scrolled');
-    } else {
-      $('#header').removeClass('header-scrolled');
-    }
-  });
-
-  if ($(window).scrollTop() > 100) {
-    $('#header').addClass('header-scrolled');
-  }
-
-  // Initialize Venobox
-  $(window).on('load', function() {
-    $('.venobox').venobox({
-      bgcolor: '',
-      overlayColor: 'rgba(6, 12, 34, 0.85)',
-      closeBackground: '',
-      closeColor: '#fff',
-      share: false
-    });
-  });
-
-  // Initiate superfish on nav menu
-  $('.nav-menu').superfish({
-    animation: {
-      opacity: 'show'
-    },
-    speed: 400
-  });
-
-  // Mobile Navigation
-  if ($('#nav-menu-container').length) {
-    var $mobile_nav = $('#nav-menu-container').clone().prop({
-      id: 'mobile-nav'
-    });
-    $mobile_nav.find('> ul').attr({
-      'class': '',
-      'id': ''
-    });
-    $('body').append($mobile_nav);
-    $('body').prepend('<button type="button" id="mobile-nav-toggle"><i class="fa fa-bars"></i></button>');
-    $('body').append('<div id="mobile-body-overly"></div>');
-    $('#mobile-nav').find('.menu-has-children').prepend('<i class="fa fa-chevron-down"></i>');
-
-    $(document).on('click', '.menu-has-children i', function(e) {
-      $(this).next().toggleClass('menu-item-active');
-      $(this).nextAll('ul').eq(0).slideToggle();
-      $(this).toggleClass("fa-chevron-up fa-chevron-down");
-    });
-
-    $(document).on('click', '#mobile-nav-toggle', function(e) {
-      $('body').toggleClass('mobile-nav-active');
-      $('#mobile-nav-toggle i').toggleClass('fa-times fa-bars');
-      $('#mobile-body-overly').toggle();
-    });
-
-    $(document).click(function(e) {
-      var container = $("#mobile-nav, #mobile-nav-toggle");
-      if (!container.is(e.target) && container.has(e.target).length === 0) {
-        if ($('body').hasClass('mobile-nav-active')) {
-          $('body').removeClass('mobile-nav-active');
-          $('#mobile-nav-toggle i').toggleClass('fa-times fa-bars');
-          $('#mobile-body-overly').fadeOut();
-        }
-      }
-    });
-  } else if ($("#mobile-nav, #mobile-nav-toggle").length) {
-    $("#mobile-nav, #mobile-nav-toggle").hide();
-  }
-
-  // Smooth scroll for the navigation menu and links with .scrollto classes
-  var scrolltoOffset = $('#header').outerHeight() - 21;
-  if (window.matchMedia("(max-width: 991px)").matches) {
-    scrolltoOffset += 20;
-  }
-  $(document).on('click', '.nav-menu a, #mobile-nav a, .scrollto', function(e) {
-    if (location.pathname.replace(/^\//, '') == this.pathname.replace(/^\//, '') && location.hostname == this.hostname) {
-      var target = $(this.hash);
-      if (target.length) {
-        e.preventDefault();
-
-
-        var scrollto = target.offset().top - scrolltoOffset;
-
-        if ($(this).attr("href") == '#header') {
-          scrollto = 0;
-        }
-
-        $('html, body').animate({
-          scrollTop: scrollto
-        }, 1500, 'easeInOutExpo');
-
-        if ($(this).parents('.nav-menu').length) {
-          $('.nav-menu .menu-active').removeClass('menu-active');
-          $(this).closest('li').addClass('menu-active');
-        }
-
-        if ($('body').hasClass('mobile-nav-active')) {
-          $('body').removeClass('mobile-nav-active');
-          $('#mobile-nav-toggle i').toggleClass('fa-times fa-bars');
-          $('#mobile-body-overly').fadeOut();
-        }
-        return false;
-      }
-    }
-  });
-
-  // Activate smooth scroll on page load with hash links in the url
-  $(document).ready(function() {
-    if (window.location.hash) {
-      var initial_nav = window.location.hash;
-      if ($(initial_nav).length) {
-        var scrollto = $(initial_nav).offset().top - scrolltoOffset;
-        $('html, body').animate({
-          scrollTop: scrollto
-        }, 1500, 'easeInOutExpo');
-      }
-    }
+ $(document).ready(function() {
     initPage();
+  })
 
-  });
-
-  // Navigation active state on scroll
-  var nav_sections = $('section');
-  var main_nav = $('.nav-menu, #mobile-nav');
-
-  $(window).on('scroll', function() {
-    var cur_pos = $(this).scrollTop() + 200;
-
-    nav_sections.each(function() {
-      var top = $(this).offset().top,
-        bottom = top + $(this).outerHeight();
-
-      if (cur_pos >= top && cur_pos <= bottom) {
-        if (cur_pos <= bottom) {
-          main_nav.find('li').removeClass('menu-active');
-        }
-        main_nav.find('a[href="#' + $(this).attr('id') + '"]').parent('li').addClass('menu-active');
-        if ($(this).attr('id') == "donate-section"){
-          updateBars()
-        }
-      }
-      if (cur_pos < 300) {
-        $(".nav-menu li:first").addClass('menu-active');
-      }
-    });
-  });
-
-
-  // Init AOS
-  function aos_init() {
-    AOS.init({
-      duration: 1000,
-      once: true
-    });
-  }
-  $(window).on('load', function() {
-    aos_init();
-  });
-
-})(jQuery);

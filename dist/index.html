@@ -17,12 +17,10 @@
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,700,700i|Raleway:300,400,500,700,800" rel="stylesheet">
 
   <!-- Vendor CSS Files -->
-  <!-- <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet"> -->
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/venobox/1.9.1/venobox.min.css" integrity="sha512-e+0yqAgUQFoRrJ4pZigQXpOE0S7J9IGwmgH801h4H5ODqOCG8/GRfXHQ+9ab754NL79O7wDwdjwY3CcU8sEANg==" crossorigin="anonymous">
-  <!-- <link href="assets/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet"> -->
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
   <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css" integrity="sha512-mSYUmp1HYZDFaVKK//63EcZq4iFWFjxSL+Z3T/aCt4IO9Cejm03q3NKKYN6pFQzY0SBOr8h+eCIAZHPXcpZaNw==" crossorigin="anonymous">
 
   <!-- Template Main CSS File -->
   <link href="/style.a11e3109.css" rel="stylesheet">
@@ -36,122 +34,147 @@
 <script src="/style.a11e3109.js"></script></head>
 
 <body>
-
+  <div class="alert alert-danger error-warning" role="alert" style="display: none">
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+    <span id="error-message"> There is an error!</span>
+    
+  </div>
   <!-- ======= Header ======= -->
   <header id="header">
     <div class="container">
 
-      <div id="logo" class="pull-left">
+      <div id="logo" class="pull-left logo">
         <!-- Uncomment below if you prefer to use a text logo -->
         <!-- <h1><a href="#intro">The<span>Event</span></a></h1>-->
-        <a href="#" class="scrollto"><img src="/logo.fb412750.png" alt="" title=""></a>
+        <a href="/" class="scrollto"><img src="/logo.fb412750.png" alt="" title=""></a>
       </div>
 
-      <nav id="nav-menu-container">
+      <nav class="nav-menu-container" id="nav-menu-container">
         <ul class="nav-menu">
           <li class="menu-active"><a href="#intro">Home</a></li>
-          <li><a href="#about-section">About this campaign</a></li>
-          <li><a href="#donate-section">Donations</a></li>
-          <li><a href="#supporters-section">Supporters</a></li>
-          <li class="donate-section"><a href="#footer">Make a campaign</a></li>
+          <li><a href="#about-section">About</a></li>
+          <!-- <li><a href="/header.html">Campaign Test</a></li> -->
           <li><a type="button" id="logout-btn" href="#" onclick="logout()">Logout</a></li>
+          <li class="important-section"><a href="#campaign-section">Make your own campaign</a></li>
+          
         </ul>
       </nav><!-- #nav-menu-container -->
     </div>
   </header><!-- End Header -->
 
   <!-- ======= Intro Section ======= -->
-  <section id="intro">
+  <section id="intro" style="background-image: url(/make-campaign.036200f7.jpg)">
     <div class="intro-container" data-aos="zoom-in" data-aos-delay="100">
-      <h1 class="mb-4 pb-0">Help me<br><span>Buy a new laptop</span></h1>
-      <p class="mb-4 pb-0">A campaign by lunafromthemoon.testnet</p>
-      <a href="https://www.youtube.com/watch?v=SB-qEYVdvXA" class="venobox play-btn mb-4" data-vbtype="video" data-autoplay="true"></a>
-      <a href="#about-section" class="outline-btn scrollto">Why?</a>
-      <div class="countdown" id="countdown">
-          <div class="row">
-            <div class="countdown-item col-sm-3 col-xs-3">
-              <div class="countdown-number" id="countdown-days">440</div>
-              <div class="countdown-label">days</div>
-            </div>
-
-            <div class="countdown-item col-sm-3 col-xs-3">
-              <div class="countdown-number" id="countdown-hours">04</div>
-              <div class="countdown-label">hours</div>
-            </div>
-
-            <div class="countdown-item col-sm-3 col-xs-3">
-              <div class="countdown-number" id="countdown-minutes">51</div>
-              <div class="countdown-label">minutes</div>
-            </div>
-
-            <div class="countdown-item col-sm-3 col-xs-3">
-              <div class="countdown-number" id="countdown-seconds">44</div>
-              <div class="countdown-label">seconds</div>
-            </div>
-          </div>
-          <h1 class="my-4 pb-0">Remaining</h1>
-      </div>
+      <p class="mb-4 pb-0">Let your dreams take flight</p>
+      <h1 class="mb-4 pb-0">You're <span>Almost There</span></h1>
+      <a href="#about-section" class="outline-btn scrollto">How?</a>
     </div>
   </section><!-- End Intro Section -->
 
-  <main id="main">
+  <main id="main" class="main-sections">
 
     <!-- ======= About Section ======= -->
-    <section id="about-section">
+    <section id="about-section" style="background-image: url('/about-bg.536e046f.jpg'); height: 100vh;">
       <div class="container" data-aos="fade-up">
         <div class="row">
-          <div class="col-lg-12">
-            <h2>About This Campaign</h2>
-            <p>Recently I tried to play a new videogame in my computer, but guess what? It couldn't run it, even in the lowest graphic settings. I'm glad I pirated that game, if not, I would have lost about 30 euros. But the issue remains, I need a new laptop so that I can play any and all of the games. </p> <p>Help me achieve this dream!</p>
+          <div class="col-lg-6">
+            <h2>How does it work?</h2>
+            <p>Almost There makes createing a fundsraising campaign as easy as it gets. You need a good idea: We will take care of the rest!</p>
+            <p>With Almost There there are no intermediaries, the donations go straight from the donors to the campaign owner. When the campaign is over, if the goal was not reached, though, the donations will be returned.</p>
+            <p>Something something cryptocurrencies. "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."</p>
           </div>
-          <img src="/about-pic.6cacf02a.jpg">
+          <div class="col-lg-6 align-self-end mb-5">
+            <img class="img-fluid" src="/idea.21a42fc0.jpg">
+          </div>
+          
+        </div>
+        <div class="row">
+          <div class="col-lg-12">
+            <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?</p>
+          </div>
         </div>
       </div>
     </section><!-- End About Section -->
 
     <!-- ======= Donate Section ======= -->
-    <section id="donate-section" class="section-with-bg">
+    
+    <section id="campaign-section" class="section-with-bg" style="background-image: url(&quot;/create-campaign2.12006a4f.jpg&quot;)">
       <div class="container" data-aos="fade-up">
 
         <div class="section-header">
-          <h2>Donations</h2>
-          <h3 class="text-center">We're Almost there!</h3>
+          <h2>Make your own campaign</h2>
+          <h3 class="text-center">You're Almost There!</h3>
         </div>
-
-        <div class="row">
-          <div class="col-lg-12" data-aos="fade-up" data-aos-delay="100">
-            <div class="row">
-              <div class="col text-center my-auto">
-                <h2 id="donations-info" class="mb-5"><span></span> Nears collected so far.</h2>
-                <div id="progressbarMoney"></div>
-                <h2 id="goal-info" class="mt-5"></h2>
-              </div>
-              <div class="col text-center">
-                <div id="progressbarPercentage"></div>
+        <div id="not-logged" style="display: none">
+          <div class="row text-center">
+            <div class="col-lg-12" data-aos="fade-up" data-aos-delay="100">
+              <h3>To create your own campaign, you first need to login.</h3>
+              <a class="outline-btn big-btn" onclick="login()" type="button">Login</a>
+            </div>
+          </div>
+        </div>
+        <div id="logged" style="display: none">
+          <div class="row mb-5" data-aos="fade-up" data-aos-delay="100">
+            <div class="col-lg-12 text-center">
+              <h3>Hello <span id="username" class="red-text"></span>, you're ready to start a campaign<br>But first, we need some information</h3><br>
+              <h2>What will this campaign be about?</h2><br>
+              <form class="form-inline justify-content-center">
+                <h3 class="mr-sm-2 my-auto">Help</h3>
+                <input type="text" class="form-control mr-sm-2 campaign-input" placeholder="Who?" aria-label="donation-amount" id="who-input" aria-describedby="basic-addon2">
+                <input type="text" class="form-control mr-sm-2 campaign-input" placeholder="To Do What?" aria-label="donation-amount" id="what-input" aria-describedby="basic-addon2">
+              </form>
+              <p style="font-style: italic;">E.g. Help me publish my new videogame. Help us open the new kitten shelter.</p>
+            </div>
+          </div>
+          <div class="row mb-5" data-aos="fade-up" data-aos-delay="200">
+            <div class="col-lg-12 text-center">
+              <h2>Now, let's elaborate a bit more.</h2>
+              <p style="font-style: italic;">Tell your potential donors why you need their help.</p>
+              <div class="form-group">
+                <textarea class="form-control campaign-input" id="campaign-description-input" rows="3"></textarea>
               </div>
             </div>
           </div>
-          <div class="col-lg-12" data-aos="fade-up" data-aos-delay="200">
-            <div class="row mt-3">
-              <div class="col text-center">
-                <div id="not-logged" style="display: none">
-                  <h3>You still have time to participate, login and make a donation!</h3>
-                  <a class="outline-btn big-btn" onclick="login()" type="button">Login</a>
-                </div>
-                <div id="logged" style="display: none;">
-                  <h3><span id="username"></span> you can help us reach the goal!</h3>
-                  <h3>
-                    <a class="outline-btn outline-blue big-btn" onclick="addDonation(10)" type="button">+10!</a>
-                    <a class="outline-btn outline-purple big-btn" onclick="addDonation(25)" type="button">+25!</a>
-                    <a class="outline-btn big-btn" onclick="addDonation(50)" type="button">+50!</a>
-                  </h3>
-                  <form class="form-inline justify-content-center">
-                    <input type="text" class="form-control mr-sm-2 w-50" placeholder="How much will you donate" value="5" aria-label="donation-amount" id="donation-input" aria-describedby="basic-addon2">
-                      <a class="outline-btn big-btn" onclick="donate()" type="button">Donate!</a>
-                  </form>
-                </div>
-              </div>
+          <div class="row mb-5" data-aos="fade-up" data-aos-delay="200">
+            <div class="col-lg-12 text-center">
+              <h2>Next, some big numbers</h2><br>
+              
+              <form class="form-inline justify-content-center">
+                <h3 class="mr-sm-2 my-auto">Your campaign goal</h3>
+                <input type="text" class="form-control mr-sm-2 campaign-input" placeholder="How Much?" aria-label="donation-amount" id="how-much-input" aria-describedby="basic-addon2">
+              </form>
+              <p style="font-style: italic;">Remember this goal and the donations you will receive, are in the<a href="https://www.coingecko.com/en/coins/near">Near cryptocurrency</a>.</p><br>
+              <form class="form-inline justify-content-center">
+                <h3 class="mr-sm-2 my-auto">The closing date</h3>
+                <input type="text" class="form-control mr-sm-2 campaign-input" placeholder="When?" aria-label="donation-amount" id="when-input" aria-describedby="basic-addon2">
+                <p style="font-style: italic;">This date marks the limit to achieve your donations goal. If the campaign is successfull, you'll keep it all. If not, the donations will be returned.</p>
+              </form>
+            </div>
+          </div>
+          <div class="row mb-5 text-center" data-aos="fade-up" data-aos-delay="300">
+            <div class="col-lg-12">
+              <h3 class="red-text">Finally, add some resources.</h3><br>
+            </div>
+            <div class="col-lg-6 my-auto">
+              <img src="" id="upload-image-preview" class="content-preview" style="display: none">
+              <a class="outline-btn big-btn icon-btn" id="img-btn" type="button" onclick="document.getElementById('upload-image-input').click();"><i class="fa fa-picture-o"></i></a>
+              <input id="upload-image-input" type="file" accept="image/*" name="upload-content" style="display: none;">
+              <p style="font-style: italic;">A splash image to pair with your description.</p>
             </div>  
+            <div class="col-lg-6 my-auto">
+              <video id="upload-video-preview" controls="controls" class="content-preview" style="display: none;"></video>
+              <a class="outline-btn big-btn icon-btn" id="video-btn" onclick="document.getElementById('upload-video-input').click();" type="button"><i class="fa fa-film"></i></a>
+              <input id="upload-video-input" type="file" accept="video/*" name="upload-content" style="display: none;">
+              <p style="font-style: italic;">A video explaining the whole idea.</p>
+            </div>  
+          </div>
+          <div class="row mb-5" data-aos="fade-up" data-aos-delay="400">
+            <div class="col-lg-12 text-center">
+              <h3 class="red-text">All ready!</h3>
+              <a class="outline-btn big-btn" onclick="previewCampaign()" id="preview-btn" type="button">Check the preview</a>
+            </div>
           </div>
         </div>
       </div>
@@ -159,34 +182,17 @@
 
     </section><!-- End Donate Section -->
 
-     <!-- ======= Supporters Section ======= -->
-    <section id="supporters-section" class="section-with-bg">
 
-      <div class="container mb-5" data-aos="fade-up">
-        <div class="section-header">
-          <h2>Supporters</h2>
-          <h3 class="text-center">This campaign will be a success thanks to...</h3>
-        </div>
-
-       <div id="donnors" class="text-center">
-        
-       </div>
-
-      </div>
-
-    </section><!-- End Sponsors Section -->
 
   <!-- ======= Footer ======= -->
   <footer id="footer">
     <div class="footer-top">
       <div class="container">
         <div class="row">
-
           <div class="col-lg-12 footer-info">
             <img src="/logo.fb412750.png" alt="AlmostThere">
-            <p>Do you want to crowdfound a project of your own? With <a href="/almost-there-landing-page">Almost There</a> it's as easy as it gets. Create your own campaign and start planning. You're Almost There!</p>
+            <p>Almost There, created by lunafromthemoon. Powered by <a href="https://siasky.net/">SIA</a> and <a href="https://near.org/">Near</a>.</p>
           </div>
-
         </div>
       </div>
     </div>
@@ -203,13 +209,14 @@
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js" integrity="sha384-LtrjvnR4Twt/qOuYxE721u19sVFLVSA4hf/rRt6PrZTmiPltdZcI7q7PXQBYTKyf" crossorigin="anonymous"></script>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js" integrity="sha512-0QbL0ph8Tc8g5bLhfVzSqxe9GERORsKhIn1IrpxDAgUsbBGz/V7iSav2zzW325XGd1OMLdL4UiqRJj702IeqnQ==" crossorigin="anonymous"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/venobox/1.9.1/venobox.min.js" integrity="sha512-6mm1Gra+9mSztlk6Q45F1soEHmkduyd2ponCIWNo5pr0lgcr8d79GQjQ3Nw0uRR3/+y/OZGklAi38yE1QSNpCw==" crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/superfish/1.7.10/js/superfish.min.js" integrity="sha512-gdhtclwUZCkHSSb/Q79++RssWL4eDLKHO15TC7kR/XnvlNyzcvZDRLn4BIuxadMWGIxPuj/IbFBInMpYockVCA==" crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.hoverintent/1.10.1/jquery.hoverIntent.js" integrity="sha512-x0lwCyqMt8JiXukekeUKmVPe4Z6yF+fgG4bex4RE+YfYdvrjJkcg6rSVdEC/dWliYjIS+Gg/YK1uaJ/N54b5kg==" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js" integrity="sha512-T/tUfKSV1bihCnd+MxKD0Hm1uBBroVYBOYSk1knyvQ9VyZJpc/ALb4P0r6ubwVPSGB2GvjeoMAJJImBG12TiaQ==" crossorigin="anonymous"></script>
   <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
   <!-- <script type="text/javascript" src="assets/js/progressbar.js"></script> -->
   <!-- Template Main JS File -->
-  <script src="/main.cea5deef.js"></script>
+  <script src="/style.c9622dd9.js"></script>
+  <script src="/js.5c615dc2.js"></script>
 
 </main></body>
 
