@@ -22,4 +22,4 @@ export class Project {
               public donors:Array<Donor>=[]){}
 }
 
-export const projects = new PersistentMap<string, Project>("Pro")
+export const projects = new PersistentMap<string, Project>("Proj")

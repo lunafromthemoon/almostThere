@@ -22532,7 +22532,7 @@ exports.logout = logout;
 exports.initNEAR = initNEAR;
 exports.getProject = getProject;
 exports.donateTo = donateTo;
-exports.startProject = startProject;
+exports.startCampaign = startCampaign;
 exports.upload_file_to_sia = upload_file_to_sia;
 exports.upload_html_to_sia = upload_html_to_sia;
 
@@ -22679,13 +22679,13 @@ function _donateTo() {
   return _donateTo.apply(this, arguments);
 }
 
-function startProject(_x4, _x5) {
-  return _startProject.apply(this, arguments);
+function startCampaign(_x4, _x5) {
+  return _startCampaign.apply(this, arguments);
 } // SIA
 
 
-function _startProject() {
-  _startProject = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee4(timestamp_end, money_objective) {
+function _startCampaign() {
+  _startCampaign = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee4(timestamp_end, money_objective) {
     var time_end;
     return regeneratorRuntime.wrap(function _callee4$(_context4) {
       while (1) {
@@ -22709,7 +22709,7 @@ function _startProject() {
       }
     }, _callee4);
   }));
-  return _startProject.apply(this, arguments);
+  return _startCampaign.apply(this, arguments);
 }
 
 function generateUUID() {
@@ -22819,7 +22819,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 window.login = _blockchain.login;
 window.logout = _blockchain.logout;
 var previewTemplate = "https://siasky.net/GAD69XHlmukIiTXkG_7RSS4HyQHSvgZN5k42kWGf9YmasQ";
-var finalTemplate = "https://siasky.net/GAD69XHlmukIiTXkG_7RSS4HyQHSvgZN5k42kWGf9YmasQ";
+var finalTemplate = "https://siasky.net/IAA0Coh71E7N5AHbpqMq-fIZpwKCT-FvH52b0_9U141zlw";
 $(document).ready(function () {
   window.accountId = null;
   window.nearInitPromise = (0, _blockchain.initNEAR)().then(function (connected) {
@@ -22850,14 +22850,14 @@ function uploadFilePreview() {
 }
 
 function _uploadFilePreview() {
-  _uploadFilePreview = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee3() {
+  _uploadFilePreview = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee4() {
     var prev, link, reader;
-    return regeneratorRuntime.wrap(function _callee3$(_context3) {
+    return regeneratorRuntime.wrap(function _callee4$(_context4) {
       while (1) {
-        switch (_context3.prev = _context3.next) {
+        switch (_context4.prev = _context4.next) {
           case 0:
             if (!(this.files && this.files[0])) {
-              _context3.next = 7;
+              _context4.next = 7;
               break;
             }
 
@@ -22871,11 +22871,11 @@ function _uploadFilePreview() {
               $("#img-btn").html(spinner);
             }
 
-            _context3.next = 5;
+            _context4.next = 5;
             return (0, _blockchain.upload_file_to_sia)(this.files[0]);
 
           case 5:
-            link = _context3.sent;
+            link = _context4.sent;
 
             if (this.files[0].type.includes('video')) {
               $("#upload-video-preview").attr('src', 'https://siasky.net/' + link);
@@ -22890,10 +22890,10 @@ function _uploadFilePreview() {
 
           case 7:
           case "end":
-            return _context3.stop();
+            return _context4.stop();
         }
       }
-    }, _callee3, this);
+    }, _callee4, this);
   }));
   return _uploadFilePreview.apply(this, arguments);
 }
@@ -22993,52 +22993,84 @@ window.previewCampaign = function () {
   }());
 };
 
-window.publishCampaign = function () {
-  var campaignData = validateCampaign();
+window.publishCampaign = /*#__PURE__*/_asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee3() {
+  var campaignData, campaignId;
+  return regeneratorRuntime.wrap(function _callee3$(_context3) {
+    while (1) {
+      switch (_context3.prev = _context3.next) {
+        case 0:
+          campaignData = validateCampaign();
 
-  if (!campaignData) {
-    // campaign error
-    $("#publish-btn").hide();
-    return;
-  }
-
-  $("#publish-btn").html("Creating campaign " + spinner);
-  $.get(finalTemplate).done( /*#__PURE__*/function () {
-    var _ref2 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2(template) {
-      var html, htmlLink;
-      return regeneratorRuntime.wrap(function _callee2$(_context2) {
-        while (1) {
-          switch (_context2.prev = _context2.next) {
-            case 0:
-              // console.log(data)
-              html = applyTemplate(template, campaignData);
-              $("#publish-btn").html("Publishing " + spinner);
-              _context2.next = 4;
-              return (0, _blockchain.upload_html_to_sia)(html);
-
-            case 4:
-              htmlLink = _context2.sent;
-              $("#publish-btn").html('Check the preview'); // $("#publish-btn").show();
-
-              window.open('https://siasky.net/' + htmlLink, '_blank');
-
-            case 7:
-            case "end":
-              return _context2.stop();
+          if (campaignData) {
+            _context3.next = 4;
+            break;
           }
-        }
-      }, _callee2);
-    }));
 
-    return function (_x2) {
-      return _ref2.apply(this, arguments);
-    };
-  }());
-};
+          // campaign error
+          $("#publish-btn").hide();
+          return _context3.abrupt("return");
+
+        case 4:
+          $("#publish-btn").html("Creating campaign " + spinner);
+          _context3.next = 7;
+          return (0, _blockchain.startCampaign)(new Date(campaignData.endDate).getTime(), campaignData.goal);
+
+        case 7:
+          campaignId = _context3.sent;
+
+          // console.log(campaignId)
+          if (campaignId) {
+            campaignData.id = campaignId;
+            $.get(finalTemplate).done( /*#__PURE__*/function () {
+              var _ref3 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2(template) {
+                var html, htmlLink;
+                return regeneratorRuntime.wrap(function _callee2$(_context2) {
+                  while (1) {
+                    switch (_context2.prev = _context2.next) {
+                      case 0:
+                        // console.log(data)
+                        html = applyTemplate(template, campaignData);
+                        $("#publish-btn").html("Publishing " + spinner);
+                        _context2.next = 4;
+                        return (0, _blockchain.upload_html_to_sia)(html);
+
+                      case 4:
+                        htmlLink = _context2.sent;
+                        $("#preview-btn").hide();
+                        $("#publish-btn").hide();
+                        $("#open-btn").attr("href", 'https://siasky.net/' + htmlLink);
+                        $("#open-btn").show(); // $("#publish-btn").show();
+
+                        window.open('https://siasky.net/' + htmlLink, '_blank');
+
+                      case 10:
+                      case "end":
+                        return _context2.stop();
+                    }
+                  }
+                }, _callee2);
+              }));
+
+              return function (_x2) {
+                return _ref3.apply(this, arguments);
+              };
+            }());
+          } else {
+            alert("error de id");
+          }
+
+        case 9:
+        case "end":
+          return _context3.stop();
+      }
+    }
+  }, _callee3);
+}));
 
 function applyTemplate(template, data) {
   if (data.id) {
-    template = template.replace("TEMPLATE_ID", data.id);
+    template = template.replace("TEMPLATE_CAMPAIGN_ID", data.id);
+    template = template.replace("TEMPLATE_CONTRACT_NAME", nearConfig.contractName);
   }
 
   template = template.replace("TEMPLATE_OWNER", data.owner);
@@ -23084,7 +23116,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "44903" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "38079" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
