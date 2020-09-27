@@ -8,8 +8,13 @@
   <title>Almost There - TEMPLATE_TITLE</title>
   <meta content="Foundrasiers in the blockchain" name="description">
   <meta content="foundraise, kickstarter, blockchain" name="keywords">
-  <meta content="TEMPLATE_CONTRACT_NAME" name="contract-name">
   <meta content="TEMPLATE_CAMPAIGN_ID" name="campaign-id">
+  <meta content="TEMPLATE_CONTRACT_NAME" name="contractName">
+  <meta content="TEMPLATE_NETWORK_ID" name="networkId">
+  <meta content="TEMPLATE_NODE_URL" name="nodeUrl">
+  <meta content="TEMPLATE_WALLET_URL" name="walletUrl">
+  <meta content="TEMPLATE_EXPLORER_URL" name="explorerUrl">
+  
   <!-- Favicons -->
   <link href="https://siasky.net/MAClgd30gDehzTGasNr4HSxRpNQ-t2tOjRXD0ofBIthC6g" rel="icon">
   <link href="https://siasky.net/MAClgd30gDehzTGasNr4HSxRpNQ-t2tOjRXD0ofBIthC6g" rel="apple-touch-icon">
@@ -58,7 +63,7 @@
       <h1 class="mb-4 pb-0">Help TEMPLATE_WHO<br><span id="what">TEMPLATE_WHAT</span></h1>
       <p class="mb-4 pb-0">A campaign by <span id="owner">TEMPLATE_OWNER</span></p>
       <a type="button" href="#videoPopup" id="campaign-video" target="_blank" class="play-btn mb-4"></a>
-      <a class="outline-btn big-btn not-logged" onclick="login()" type="button">Login with Near</a>
+      <a class="outline-btn big-btn not-logged" onclick="login()" type="button">Login with NEAR</a>
       <div id="videoPopup" class="mfp-hide embed-responsive embed-responsive-21by9">
         <iframe class="embed-responsive-item" width="854" height="480" src="TEMPLATE_VIDEO" frameborder="0" allowfullscreen></iframe>
       </div>
@@ -101,7 +106,7 @@
             <p id="campaign-description">TEMPLATE_DESCRIPTION</p>
             <div class="not-logged text-center my-3">
               <h3>You still have time to participate, login and make a donation!</h3>
-              <a class="outline-btn big-btn" onclick="login()" type="button">Login with Near</a>
+              <a class="outline-btn big-btn" onclick="login()" type="button">Login with NEAR</a>
             </div>
           </div>
           <img id="campaign-image" src="TEMPLATE_IMAGE">
@@ -123,7 +128,7 @@
           <div class="col-lg-12" data-aos="fade-up" data-aos-delay="100">
             <div class="row">
               <div class="col text-center my-auto">
-                <h2 id="donations-info" class="mb-5"><span></span> Nears collected so far.</h2>
+                <h2 id="donations-info" class="mb-5"><span></span> NEARs collected so far.</h2>
                 <div id="progressbarMoney"></div>
                 <h2 id="goal-info" class="mt-5"></h2>
               </div>
@@ -179,7 +184,7 @@
           <div class="col-lg-12 footer-info">
             <img src="assets/img/logo.png" alt="AlmostThere">
             <p>Do you want to crowdfound a project of your own? With <a href="/almost-there-landing-page">Almost There</a> it's as easy as it gets. Create your own campaign and start planning. You're Almost There!</p>
-            <p>Almost There, created by lunafromthemoon. Powered by <a href="https://siasky.net/">SIA</a> and <a href="https://near.org/">Near</a>.</p>
+            <p>Almost There, created by lunafromthemoon. Powered by <a href="https://siasky.net/">SIA</a> and <a href="https://near.org/">NEAR.</a></p>
           </div>
         </div>
       </div>
@@ -208,15 +213,24 @@
   <!-- progressbar.js -->
   <script type="text/javascript" src="https://siasky.net/JAD9Lc7d-JgWxm9q0FM62diQwT8191YNTO7ucn80_cfY5Q"></script>
   <!-- style.js -->
-  <script src="https://siasky.net/CAABxphqButp3eASD561MMfj9ptsa0fPF83eYn6IrejNog" type="text/javascript"></script>
+  <script src="https://siasky.net/CABX6PZx-t_uTa2CSXxsHRv15PafMuEr1QWXFnB3o_9OOQ" type="text/javascript"></script>
 
   <script src="https://cdn.jsdelivr.net/gh/nearprotocol/near-api-js/dist/near-api-js.js"></script>
 
 <script type="text/javascript">
 
-  const CONTRACT_NAME = $('meta[name=contract-name]').attr("content");
   const CAMPAIGN_ID = $('meta[name=campaign-id]').attr("content");
-  const nearConfig = getConfig('development',CONTRACT_NAME)
+  const nearConfig = {
+        networkId: $('meta[name=networkId]').attr("content"),
+        nodeUrl: $('meta[name=nodeUrl]').attr("content"),
+        contractName: $('meta[name=contractName]').attr("content"),
+        walletUrl: $('meta[name=walletUrl]').attr("content"),
+        helperUrl: $('meta[name=helperUrl]').attr("content"),
+        explorerUrl: $('meta[name=explorerUrl]').attr("content"),
+      }
+
+
+  // getConfig('development',CONTRACT_NAME)
 
   window.login = function login() {
     window.walletConnection.requestSignIn(nearConfig.contractName)
@@ -248,6 +262,7 @@
       } else {
         initBars();
         initDonors();
+        window.location.hash = '#donate-section';
       }
     });
     $(".not-logged").hide();
@@ -424,11 +439,11 @@
 
     project.time_init = project.time_init/1000000
     project.time_end = project.time_end/1000000
-    project.money_objective = nearApi.utils.format.formatNearAmount(project.money_objective).toString()
-    project.money_funded = nearApi.utils.format.formatNearAmount(project.money_funded).toString()
+    project.money_objective = nearApi.utils.format.formatNEARAmount(project.money_objective).toString()
+    project.money_funded = nearApi.utils.format.formatNEARAmount(project.money_funded).toString()
     
     for (let i=0; i<project.donors.length; i++){
-      project.donors[i].amount = nearApi.utils.format.formatNearAmount(project.donors[i].amount).toString()
+      project.donors[i].amount = nearApi.utils.format.formatNEARAmount(project.donors[i].amount).toString()
     }
 
     return project
@@ -436,7 +451,7 @@
 
   async function donateTo(id, money_amount){
     // OPENS another webpage to pay
-    let amount = nearApi.utils.format.parseNearAmount(money_amount.toString())
+    let amount = nearApi.utils.format.parseNEARAmount(money_amount.toString())
     let account = window.walletConnection.account()
     account.functionCall(nearConfig.contractName, 'donateTo', {id}, 0, amount)
   }

@@ -1,5 +1,5 @@
 {
-  "name": "nearlyThere",
+  "name": "AlmostThere",
   "version": "0.0.1",
   "license": "UNLICENSED",
   "scripts": {
@@ -28,7 +28,6 @@
   },
   "dependencies": {
     "near-api-js": "^0.29.0",
-    "progressbar.js": "^1.1.0",
     "regenerator-runtime": "^0.13.5"
   },
   "jest": {

@@ -22530,11 +22530,7 @@ Object.defineProperty(exports, "__esModule", {
 exports.login = login;
 exports.logout = logout;
 exports.initNEAR = initNEAR;
-exports.getProject = getProject;
-exports.donateTo = donateTo;
 exports.startCampaign = startCampaign;
-exports.upload_file_to_sia = upload_file_to_sia;
-exports.upload_html_to_sia = upload_html_to_sia;
 
 var _nearApiJs = require("near-api-js");
 
@@ -22547,8 +22543,6 @@ function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
 var nearConfig = (0, _config.default)('development');
-console.log(" asdf            nearConfig");
-console.log(nearConfig);
 window.nearConfig = nearConfig; // ===== API =====
 
 function login() {
@@ -22563,8 +22557,7 @@ function logout() {
 
 function initNEAR() {
   return _initNEAR.apply(this, arguments);
-} // CONTENT
-
+}
 
 function _initNEAR() {
   _initNEAR = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee() {
@@ -22603,207 +22596,91 @@ function _initNEAR() {
   return _initNEAR.apply(this, arguments);
 }
 
-function getProject(_x) {
-  return _getProject.apply(this, arguments);
-}
+function startCampaign(_x, _x2) {
+  return _startCampaign.apply(this, arguments);
+} // CONTENT
+// export async function getProject(id){
+//   // Returns {id:string, time_init:timestamp, time_end:timestamp,
+//   //          money_objective:u128, money_funded:u128, donors:list[Donor]}
+//   // where
+//   //         Donor = {id:string, amount:u128}
+//   let project = await contract.getProjectOf({id})
+//   if(!project){return}
+//   project.time_init = project.time_init/1000000
+//   project.time_end = project.time_end/1000000
+//   project.money_objective = utils.format.formatNearAmount(project.money_objective).toString()
+//   project.money_funded = utils.format.formatNearAmount(project.money_funded).toString()
+//   for (let i=0; i<project.donors.length; i++){
+//     project.donors[i].amount = utils.format.formatNearAmount(project.donors[i].amount).toString()
+//   }
+//   return project
+// }
+// export async function donateTo(id, money_amount){
+//   // OPENS another webpage to pay
+//   let amount = utils.format.parseNearAmount(money_amount.toString())
+//   let account = window.walletConnection.account()
+//   account.functionCall(nearConfig.contractName, 'donateTo', {id}, 0, amount)
+// }
+// SIA
+// function generateUUID() {
+//   let uuid = ''
+//   const cs = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'
+//   for (let i = 0; i < 16; i++) {
+//     uuid += cs.charAt(Math.floor(Math.random() * cs.length))
+//   }
+//   return uuid;
+// }
+// export async function upload_file_to_sia(file){
+//   const uuid = generateUUID()
+//   var formData = new FormData()
+//   formData.append("file", file)
+//   let response = await fetch('https://siasky.net/skynet/skyfile/'+uuid,
+//                              {method:"POST", body:formData})
+//                 .then(response => response.json())
+//                 .then(success => {return success.skylink})
+//                 .catch(error => {console.log(error)})
+//   return response
+// }
+// export async function upload_html_to_sia(new_html){
+//   var blob = new Blob([new_html], {type:"text/html; charset=UTF-8"})
+//   var formData = new FormData()
+//   formData.append("file", blob)
+//   const uuid = generateUUID()
+//   let response = await fetch('https://siasky.net/skynet/skyfile/'+uuid,
+//                              {method:"POST", body:formData})
+//                  .then(response => response.json())
+//                  .then(success => {return success.skylink})
+//                  .catch(error => {console.log(error)})
+//   return response
+// }
 
-function _getProject() {
-  _getProject = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2(id) {
-    var project, i;
+
+function _startCampaign() {
+  _startCampaign = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2(timestamp_end, money_objective) {
+    var time_end;
     return regeneratorRuntime.wrap(function _callee2$(_context2) {
       while (1) {
         switch (_context2.prev = _context2.next) {
           case 0:
-            _context2.next = 2;
-            return contract.getProjectOf({
-              id: id
-            });
-
-          case 2:
-            project = _context2.sent;
-
-            if (project) {
-              _context2.next = 5;
-              break;
-            }
-
-            return _context2.abrupt("return");
-
-          case 5:
-            project.time_init = project.time_init / 1000000;
-            project.time_end = project.time_end / 1000000;
-            project.money_objective = _nearApiJs.utils.format.formatNearAmount(project.money_objective).toString();
-            project.money_funded = _nearApiJs.utils.format.formatNearAmount(project.money_funded).toString();
-
-            for (i = 0; i < project.donors.length; i++) {
-              project.donors[i].amount = _nearApiJs.utils.format.formatNearAmount(project.donors[i].amount).toString();
-            }
-
-            return _context2.abrupt("return", project);
-
-          case 11:
-          case "end":
-            return _context2.stop();
-        }
-      }
-    }, _callee2);
-  }));
-  return _getProject.apply(this, arguments);
-}
-
-function donateTo(_x2, _x3) {
-  return _donateTo.apply(this, arguments);
-}
-
-function _donateTo() {
-  _donateTo = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee3(id, money_amount) {
-    var amount, account;
-    return regeneratorRuntime.wrap(function _callee3$(_context3) {
-      while (1) {
-        switch (_context3.prev = _context3.next) {
-          case 0:
-            // OPENS another webpage to pay
-            amount = _nearApiJs.utils.format.parseNearAmount(money_amount.toString());
-            account = window.walletConnection.account();
-            account.functionCall(nearConfig.contractName, 'donateTo', {
-              id: id
-            }, 0, amount);
-
-          case 3:
-          case "end":
-            return _context3.stop();
-        }
-      }
-    }, _callee3);
-  }));
-  return _donateTo.apply(this, arguments);
-}
-
-function startCampaign(_x4, _x5) {
-  return _startCampaign.apply(this, arguments);
-} // SIA
-
-
-function _startCampaign() {
-  _startCampaign = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee4(timestamp_end, money_objective) {
-    var time_end;
-    return regeneratorRuntime.wrap(function _callee4$(_context4) {
-      while (1) {
-        switch (_context4.prev = _context4.next) {
-          case 0:
             time_end = (timestamp_end * 1000000).toString();
             money_objective = _nearApiJs.utils.format.parseNearAmount(money_objective.toString());
-            _context4.next = 4;
+            _context2.next = 4;
             return contract.startProject({
               time_end: time_end,
               money_objective: money_objective
             });
 
           case 4:
-            return _context4.abrupt("return", _context4.sent);
+            return _context2.abrupt("return", _context2.sent);
 
           case 5:
           case "end":
-            return _context4.stop();
+            return _context2.stop();
         }
       }
-    }, _callee4);
+    }, _callee2);
   }));
   return _startCampaign.apply(this, arguments);
-}
-
-function generateUUID() {
-  var uuid = '';
-  var cs = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-
-  for (var i = 0; i < 16; i++) {
-    uuid += cs.charAt(Math.floor(Math.random() * cs.length));
-  }
-
-  return uuid;
-}
-
-function upload_file_to_sia(_x6) {
-  return _upload_file_to_sia.apply(this, arguments);
-}
-
-function _upload_file_to_sia() {
-  _upload_file_to_sia = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee5(file) {
-    var uuid, formData, response;
-    return regeneratorRuntime.wrap(function _callee5$(_context5) {
-      while (1) {
-        switch (_context5.prev = _context5.next) {
-          case 0:
-            uuid = generateUUID();
-            formData = new FormData();
-            formData.append("file", file);
-            _context5.next = 5;
-            return fetch('https://siasky.net/skynet/skyfile/' + uuid, {
-              method: "POST",
-              body: formData
-            }).then(function (response) {
-              return response.json();
-            }).then(function (success) {
-              return success.skylink;
-            }).catch(function (error) {
-              console.log(error);
-            });
-
-          case 5:
-            response = _context5.sent;
-            return _context5.abrupt("return", response);
-
-          case 7:
-          case "end":
-            return _context5.stop();
-        }
-      }
-    }, _callee5);
-  }));
-  return _upload_file_to_sia.apply(this, arguments);
-}
-
-function upload_html_to_sia(_x7) {
-  return _upload_html_to_sia.apply(this, arguments);
-}
-
-function _upload_html_to_sia() {
-  _upload_html_to_sia = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee6(new_html) {
-    var blob, formData, uuid, response;
-    return regeneratorRuntime.wrap(function _callee6$(_context6) {
-      while (1) {
-        switch (_context6.prev = _context6.next) {
-          case 0:
-            blob = new Blob([new_html], {
-              type: "text/html; charset=UTF-8"
-            });
-            formData = new FormData();
-            formData.append("file", blob);
-            uuid = generateUUID();
-            _context6.next = 6;
-            return fetch('https://siasky.net/skynet/skyfile/' + uuid, {
-              method: "POST",
-              body: formData
-            }).then(function (response) {
-              return response.json();
-            }).then(function (success) {
-              return success.skylink;
-            }).catch(function (error) {
-              console.log(error);
-            });
-
-          case 6:
-            response = _context6.sent;
-            return _context6.abrupt("return", response);
-
-          case 8:
-          case "end":
-            return _context6.stop();
-        }
-      }
-    }, _callee6);
-  }));
-  return _upload_html_to_sia.apply(this, arguments);
 }
 },{"near-api-js":"../node_modules/near-api-js/lib/browser-index.js","./config":"assets/js/config.js"}],"assets/js/index.js":[function(require,module,exports) {
 "use strict";
@@ -22829,6 +22706,8 @@ $(document).ready(function () {
     format: 'mm/dd/yyyy',
     startDate: new Date()
   });
+  $("#upload-image-input").change(uploadFilePreview);
+  $("#upload-video-input").change(uploadFilePreview);
 });
 
 function loginFlow() {
@@ -22872,7 +22751,7 @@ function _uploadFilePreview() {
             }
 
             _context4.next = 5;
-            return (0, _blockchain.upload_file_to_sia)(this.files[0]);
+            return upload_file_to_sia(this.files[0]);
 
           case 5:
             link = _context4.sent;
@@ -22971,7 +22850,7 @@ window.previewCampaign = function () {
               html = applyTemplate(template, campaignData);
               $("#preview-btn").html("Uploading preview " + spinner);
               _context.next = 4;
-              return (0, _blockchain.upload_html_to_sia)(html);
+              return upload_html_to_sia(html);
 
             case 4:
               htmlLink = _context.sent;
@@ -23032,7 +22911,7 @@ window.publishCampaign = /*#__PURE__*/_asyncToGenerator( /*#__PURE__*/regenerato
                         html = applyTemplate(template, campaignData);
                         $("#publish-btn").html("Publishing " + spinner);
                         _context2.next = 4;
-                        return (0, _blockchain.upload_html_to_sia)(html);
+                        return upload_html_to_sia(html);
 
                       case 4:
                         htmlLink = _context2.sent;
@@ -23072,6 +22951,10 @@ function applyTemplate(template, data) {
   if (data.id) {
     template = template.replace("TEMPLATE_CAMPAIGN_ID", data.id);
     template = template.replace("TEMPLATE_CONTRACT_NAME", nearConfig.contractName);
+    template = template.replace("TEMPLATE_NETWORK_ID", nearConfig.networkId);
+    template = template.replace("TEMPLATE_NODE_URL", nearConfig.nodeUrl);
+    template = template.replace("TEMPLATE_WALLET_URL", nearConfig.walletUrl);
+    template = template.replace("TEMPLATE_EXPLORER_URL", nearConfig.explorerUrl);
   }
 
   template = template.replace("TEMPLATE_OWNER", data.owner);
@@ -23085,10 +22968,102 @@ function applyTemplate(template, data) {
   template = template.replace("TEMPLATE_GOAL", data.goal);
   template = template.replace("TEMPLATE_DATE", data.endDate);
   return template;
+} // SIA connection
+
+
+function generateUUID() {
+  var uuid = '';
+  var cs = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+
+  for (var i = 0; i < 16; i++) {
+    uuid += cs.charAt(Math.floor(Math.random() * cs.length));
+  }
+
+  return uuid;
 }
 
-$("#upload-image-input").change(uploadFilePreview);
-$("#upload-video-input").change(uploadFilePreview);
+function upload_file_to_sia(_x3) {
+  return _upload_file_to_sia.apply(this, arguments);
+}
+
+function _upload_file_to_sia() {
+  _upload_file_to_sia = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee5(file) {
+    var uuid, formData, response;
+    return regeneratorRuntime.wrap(function _callee5$(_context5) {
+      while (1) {
+        switch (_context5.prev = _context5.next) {
+          case 0:
+            uuid = generateUUID();
+            formData = new FormData();
+            formData.append("file", file);
+            _context5.next = 5;
+            return fetch('https://siasky.net/skynet/skyfile/' + uuid, {
+              method: "POST",
+              body: formData
+            }).then(function (response) {
+              return response.json();
+            }).then(function (success) {
+              return success.skylink;
+            }).catch(function (error) {
+              console.log(error);
+            });
+
+          case 5:
+            response = _context5.sent;
+            return _context5.abrupt("return", response);
+
+          case 7:
+          case "end":
+            return _context5.stop();
+        }
+      }
+    }, _callee5);
+  }));
+  return _upload_file_to_sia.apply(this, arguments);
+}
+
+function upload_html_to_sia(_x4) {
+  return _upload_html_to_sia.apply(this, arguments);
+}
+
+function _upload_html_to_sia() {
+  _upload_html_to_sia = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee6(new_html) {
+    var blob, formData, uuid, response;
+    return regeneratorRuntime.wrap(function _callee6$(_context6) {
+      while (1) {
+        switch (_context6.prev = _context6.next) {
+          case 0:
+            blob = new Blob([new_html], {
+              type: "text/html; charset=UTF-8"
+            });
+            formData = new FormData();
+            formData.append("file", blob);
+            uuid = generateUUID();
+            _context6.next = 6;
+            return fetch('https://siasky.net/skynet/skyfile/' + uuid, {
+              method: "POST",
+              body: formData
+            }).then(function (response) {
+              return response.json();
+            }).then(function (success) {
+              return success.skylink;
+            }).catch(function (error) {
+              console.log(error);
+            });
+
+          case 6:
+            response = _context6.sent;
+            return _context6.abrupt("return", response);
+
+          case 8:
+          case "end":
+            return _context6.stop();
+        }
+      }
+    }, _callee6);
+  }));
+  return _upload_html_to_sia.apply(this, arguments);
+}
 },{"regenerator-runtime/runtime":"../node_modules/regenerator-runtime/runtime.js","./blockchain":"assets/js/blockchain.js"}],"../node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
@@ -23117,7 +23092,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "46791" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "43477" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

@@ -1,5 +1,5 @@
 import 'regenerator-runtime/runtime'
-import {initNEAR, login, logout, startCampaign, upload_file_to_sia, upload_html_to_sia } from './blockchain'
+import {initNEAR, login, logout, startCampaign } from './blockchain'
 
 window.login = login;
 window.logout = logout;
@@ -16,6 +16,9 @@ $(document).ready(function() {
     format: 'mm/dd/yyyy',
     startDate: new Date()
   });
+
+  $("#upload-image-input").change(uploadFilePreview)
+  $("#upload-video-input").change(uploadFilePreview)
 })
 
 function loginFlow(){
@@ -168,6 +171,10 @@ function applyTemplate(template,data){
   if (data.id){
     template = template.replace("TEMPLATE_CAMPAIGN_ID",data.id);
     template = template.replace("TEMPLATE_CONTRACT_NAME",nearConfig.contractName);
+    template = template.replace("TEMPLATE_NETWORK_ID",nearConfig.networkId);
+    template = template.replace("TEMPLATE_NODE_URL",nearConfig.nodeUrl);
+    template = template.replace("TEMPLATE_WALLET_URL",nearConfig.walletUrl);
+    template = template.replace("TEMPLATE_EXPLORER_URL",nearConfig.explorerUrl);
   }
   template = template.replace("TEMPLATE_OWNER",data.owner);
   template = template.replace("TEMPLATE_TITLE",`Help ${data.title.who} ${data.title.what}`);
@@ -182,6 +189,43 @@ function applyTemplate(template,data){
   return template;
 }
 
-$("#upload-image-input").change(uploadFilePreview)
-$("#upload-video-input").change(uploadFilePreview)
+// SIA connection
 
+function generateUUID() {
+  let uuid = ''
+  const cs = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'
+  for (let i = 0; i < 16; i++) {
+    uuid += cs.charAt(Math.floor(Math.random() * cs.length))
+  }
+  return uuid;
+}
+
+async function upload_file_to_sia(file){
+  const uuid = generateUUID()
+
+  var formData = new FormData()
+  formData.append("file", file)
+
+  let response = await fetch('https://siasky.net/skynet/skyfile/'+uuid,
+                             {method:"POST", body:formData})
+                .then(response => response.json())
+                .then(success => {return success.skylink})
+                .catch(error => {console.log(error)})
+  return response
+}
+
+async function upload_html_to_sia(new_html){
+  var blob = new Blob([new_html], {type:"text/html; charset=UTF-8"})
+
+  var formData = new FormData()
+  formData.append("file", blob)
+
+  const uuid = generateUUID()
+
+  let response = await fetch('https://siasky.net/skynet/skyfile/'+uuid,
+                             {method:"POST", body:formData})
+                 .then(response => response.json())
+                 .then(success => {return success.skylink})
+                 .catch(error => {console.log(error)})
+  return response
+}
