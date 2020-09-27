@@ -7,7 +7,7 @@ package-lock.json
 /.cache
 .pnp.js
 /out
-/dist
+dist
 
 #keys
 /neardev
