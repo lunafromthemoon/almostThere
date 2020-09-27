@@ -37,6 +37,7 @@ export function getProjectOf(id:string): Project | null{
 export function startProject(time_end:string, money_objective:u128):bool{
   let ftime:u128 = u128.from(time_end)
   let now:u128 = u128.from(env.block_timestamp())
+  let id:string = context.sender + "-" + now.toString()
   
   // Check if it has a project running already, if it does, return
   let currently = projects.get(context.sender)
@@ -45,7 +46,7 @@ export function startProject(time_end:string, money_objective:u128):bool{
   }
 
   // Create new project
-  let project = new Project(context.sender, now, ftime, money_objective)
+  let project = new Project(id, context.sender, now, ftime, money_objective)
   projects.set(context.sender, project)
   return true
 }
@@ -59,7 +60,7 @@ function checkAndDistribute(project:Project):void{
   let pdonors: Array<Donor> = project.donors
 
   if(project.money_objective <= project.money_funded){
-    ContractPromiseBatch.create(project.id).transfer(project.money_funded)
+    ContractPromiseBatch.create(project.owner).transfer(project.money_funded)
   }else{
     // Return money to each donor
     for (let i = 0; i < pdonors.length; i++){
@@ -87,9 +88,9 @@ export function donateTo(id: string): void {
   // Add to list, and update project
   addDonor(id, context.sender, amount)
   let funded:u128 = u128.add(project.money_funded, amount)
-  let updated_project = new Project(project.id, project.time_init,
-                                    project.time_end, project.money_objective,
-                                    funded, [])
+  let updated_project = new Project(project.id, project.owner,
+                                    project.time_init, project.time_end,
+                                    project.money_objective, funded, [])
 
   projects.set(project.id, updated_project)
 }

@@ -16,8 +16,9 @@ export const project_donors = new PersistentMap<string, DonorList>("Don")
 // Map user-id -> its project
 @nearBindgen
 export class Project {
-  constructor(public id:string, public time_init:u128, public time_end:u128,
-              public money_objective: u128, public money_funded:u128=u128.from(0),
+  constructor(public id:string, public owner:string, public time_init:u128,
+              public time_end:u128, public money_objective: u128,
+              public money_funded:u128=u128.from(0),
               public donors:Array<Donor>=[]){}
 }
 
