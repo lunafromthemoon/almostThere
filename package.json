@@ -12,7 +12,7 @@
     "deploy:pages": "gh-pages -d dist/",
     "deploy": "npm run build && npm run deploy:contract && npm run deploy:pages",
     "prestart": "npm run build:contract:debug && npm run dev:deploy:contract",
-    "start": "echo The app is starting! It will automatically open in your browser when ready && env-cmd -f ./neardev/dev-account.env parcel src/index.html --open",
+    "start": "echo The app will publish itself to Sia, check the link when finished! && env-cmd -f ./neardev/dev-account.env node ./www/publish-project.js",
     "dev": "nodemon --watch assembly -e ts --exec \"npm run start\"",
     "test": "npm run build:contract:debug && asp --nologo && jest test --runInBand"
   },
@@ -27,7 +27,9 @@
     "parcel-bundler": "^1.12.4"
   },
   "dependencies": {
+    "@nebulous/skynet": "^2.0.1",
     "near-api-js": "^0.29.0",
+    "node-fetch": "^2.6.1",
     "regenerator-runtime": "^0.13.5"
   },
   "jest": {

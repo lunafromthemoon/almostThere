@@ -1,0 +1,26 @@
+{
+	"nearConfig":[
+		  ["CONFIG_NETWORK_ID", "testnet"],
+	      ["CONFIG_NODE_URL", "https://rpc.testnet.near.org"],
+	      ["CONFIG_WALLET_URL", "https://wallet.testnet.near.org"],
+	      ["CONFIG_HELPER_URL", "https://helper.testnet.near.org"],
+	      ["CONFIG_EXPLORER_URL", "https://explorer.testnet.near.org"]
+		],
+	"templates":{
+		"TEMPLATE_PREVIEW" : "assets/templates/preview.html",
+		"TEMPLATE_FINAL" : "assets/templates/campaign.html"
+	},
+	"resources":[
+		["MAIN_JS", "assets/js/index.js"],
+		["CAMPAIGN_JS", "assets/js/campaign.js"],
+		["PREVIEW_JS", "assets/js/preview.js"],
+		["STYLE_JS", "assets/js/style.js"],
+		["STYLE_CSS", "assets/css/style.css"],
+		["FAVICON", "assets/img/favicon.png"],
+		["FAVICON_APPLE", "assets/img/favicon.png"],
+		["IMG_LOGO", "assets/img/logo.png"]
+	],
+	"index": "assets/templates/index.html",
+	"domain": "lunafromthemoon.asdf",
+	"handshake": false
+}

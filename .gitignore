@@ -8,7 +8,8 @@ package-lock.json
 .pnp.js
 /out
 dist
-
+www/uploads/*
+www/handshake.txt
 #keys
 /neardev
 
