@@ -32,6 +32,7 @@
       }
      })
     initCountdown();
+    initNearExchanger();
   });
 
   function loginFlow(){
@@ -70,6 +71,51 @@
     });
   }
 
+  function initNearExchanger(){
+    // NEAR value
+    $.get( "https://api.coingecko.com/api/v3/simple/price?ids=near&vs_currencies=usd,jpy,eur,gbp,bch", function( data ) {
+      window.currencyData = data.near;
+      updateNearValue()
+    });
+    window.showFiatExchange = function(){
+      $("#fiat-exchange").show();
+    }
+
+    window.changeFiat = function(fiat){
+      $(".currency-input-append").html(fiat.toUpperCase());
+      if ($("#near-currency").val()){
+        updateNearValue();
+      }
+    }
+
+    function updateFiatValue(){
+      nearValue = $("#near-currency").val();
+      if (isNaN(nearValue)){
+        $("#fiat-currency").val(1);
+        nearValue = 1;
+      }
+      let fiat = $(".currency-input-append").html().toLowerCase();
+      let exchange = currencyData[fiat];
+      let fiatValue = nearValue*exchange;
+      $("#fiat-currency").val(Math.round((fiatValue + Number.EPSILON) * 100) / 100)
+    }
+
+    function updateNearValue(){
+      let fiatValue = parseFloat($("#fiat-currency").val());
+      if (isNaN(fiatValue)){
+        $("#fiat-currency").val(1);
+        fiatValue = 1;
+      }
+      let fiat = $(".currency-input-append").html().toLowerCase();
+      let exchange = currencyData[fiat];
+      let nearValue = fiatValue/exchange;
+      $("#near-currency").val(Math.round((nearValue + Number.EPSILON) * 100) / 100)
+    }
+
+    $("#fiat-currency").on('input',updateNearValue);
+    $("#near-currency").on('input',updateFiatValue);
+  }
+
   const star = '<i class="fa fa-paper-plane-o"></i>';
 
   function initDonors(){
@@ -78,12 +124,12 @@
     $("#donors").html("")
     donations.forEach(donor=>{
       var donorClass = "small-donor";
-      if (donor.amount >=100 || donor.id == accountId){
+      if (donor.amount >=20 || donor.id == accountId){
         donorClass="star-donor"
         donor.id = donor.id+star
-      } else if (donor.amount >= 50){
+      } else if (donor.amount >= 10){
         donorClass="big-donor"
-      } else if (donor.amount >= 15){
+      } else if (donor.amount >= 5){
         donorClass="medium-donor"
       }
       $("#donors").append(`<span class="${donorClass}"> ${donor.id} </span>`);

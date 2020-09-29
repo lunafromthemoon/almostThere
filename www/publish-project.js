@@ -91,7 +91,7 @@ async function publish(){
 	}
 	fs.writeFileSync(webPath+'uploads/published.json', JSON.stringify(links));
 	if (webConfig.handshake){
-		updateHandshake(webConfig.handshake,link);
+		updateHandshake(webConfig.handshake,link.replace("sia://",""));
 	}
 }
 

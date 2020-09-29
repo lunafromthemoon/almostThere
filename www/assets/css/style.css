@@ -155,6 +155,7 @@ h1, h2, h3, h4, h5, h6 {
   /*border: 2px solid #f82249;*/
 }
 
+
 /* Sections Header
 --------------------------------*/
 .section-header {
@@ -702,6 +703,11 @@ body.mobile-nav-active #mobile-nav-toggle {
   border: 2px solid #f82249;
 }
 
+.outline-btn:hover {
+  background: #f82249;
+  color: #fff;
+}
+
 .outline-blue {
   border: 2px solid #3277a8;
 }
@@ -710,10 +716,7 @@ body.mobile-nav-active #mobile-nav-toggle {
   border: 2px solid #9232a8;
 }
 
-.outline-btn:hover {
-  background: #f82249;
-  color: #fff;
-}
+
 
 .outline-blue:hover {
   background: #3277a8;
@@ -902,3 +905,20 @@ body.mobile-nav-active #mobile-nav-toggle {
   color: #fff;
 }
 
+.currency-input-prepend {
+  border-top-left-radius: 25px;
+  border-bottom-left-radius: 25px;
+  margin: 0px;
+  background: rgba(0,0,0,0);
+}
+
+.currency-input-append {
+  border-bottom-right-radius: 25px;
+  border-top-right-radius: 25px;
+  margin: 0px;
+}
+
+.currency-input {
+  /*border: 2px solid #f82249;*/
+  height: initial;
+}

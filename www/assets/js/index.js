@@ -11,6 +11,49 @@ $(document).ready(function() {
   $("#upload-image-input").change(uploadFilePreview)
   $("#upload-video-input").change(uploadFilePreview)
 
+  // NEAR value
+  $.get( "https://api.coingecko.com/api/v3/simple/price?ids=near&vs_currencies=usd,jpy,eur,gbp,bch", function( data ) {
+    window.currencyData = data.near;
+    updateNearValue()
+  });
+  window.showFiatExchange = function(){
+    $("#fiat-exchange").show();
+  }
+
+  window.changeFiat = function(fiat){
+    $(".currency-input-append").html(fiat.toUpperCase());
+    if ($("#near-currency").val()){
+      updateNearValue();
+    }
+  }
+
+  function updateFiatValue(){
+    nearValue = $("#near-currency").val();
+    if (isNaN(nearValue)){
+      $("#fiat-currency").val(1);
+      nearValue = 1;
+    }
+    let fiat = $(".currency-input-append").html().toLowerCase();
+    let exchange = currencyData[fiat];
+    let fiatValue = nearValue*exchange;
+    $("#fiat-currency").val(Math.round((fiatValue + Number.EPSILON) * 100) / 100)
+  }
+
+  function updateNearValue(){
+    let fiatValue = parseFloat($("#fiat-currency").val());
+    if (isNaN(fiatValue)){
+      $("#fiat-currency").val(1);
+      fiatValue = 1;
+    }
+    let fiat = $(".currency-input-append").html().toLowerCase();
+    let exchange = currencyData[fiat];
+    let nearValue = fiatValue/exchange;
+    $("#near-currency").val(Math.round((nearValue + Number.EPSILON) * 100) / 100)
+  }
+
+  $("#fiat-currency").on('input',updateNearValue);
+  $("#near-currency").on('input',updateFiatValue);
+
   window.previewTemplate = $('meta[name=previewTemplate]').attr("content");
   window.finalTemplate = $('meta[name=finalTemplate]').attr("content");
 

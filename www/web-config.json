@@ -16,11 +16,11 @@
 		["PREVIEW_JS", "assets/js/preview.js"],
 		["STYLE_JS", "assets/js/style.js"],
 		["STYLE_CSS", "assets/css/style.css"],
-		["FAVICON", "assets/img/favicon.png"],
 		["FAVICON_APPLE", "assets/img/favicon.png"],
+		["FAVICON", "assets/img/favicon.png"],
 		["IMG_LOGO", "assets/img/logo.png"]
 	],
 	"index": "assets/templates/index.html",
 	"domain": "lunafromthemoon.asdf",
-	"handshake": false
+	"handshake":false
 }
