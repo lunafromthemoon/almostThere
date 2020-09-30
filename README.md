@@ -3,7 +3,7 @@
 Almost There is a crowdfunding platform based on [NEAR](https://near.org/) and hosted on [Sia](https://siasky.net/). Users can both create new Almost There "campaigns", or donate to one. Each campaign is also created as their own webpage (also hosted on Sia), that the users can link and promote on their own. The campaigns have a date of closing and donations goal. When the date is reached, if the goal was achieved or surpassed, the donations are sent to the campaign owner; if not, the donations are returned to the donors.
 
 
-Check the [demo!](https://siasky.net/hns/lunafromthemoon/)
+Check the [demo!](https://siasky.net/hns/lunafromthemoon/) and the [video on how to use it!](https://siasky.net/AACjNkdbHx6SJ_L3MLT8otJ1moEEqiaGZQXrtWa4RJC0ig)
 
 # How does it work?
 
